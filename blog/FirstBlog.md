@@ -1,8 +1,8 @@
 ---
-name: "Are these designers Cheating?"
-slug: "are-these-designers-cheating"
-category: "News"
-summary: "Etiam condim dignissim lorem, Sed ultricies nibh sit amet massa maximus tincidunt."
+name: "My frist blog?"
+slug: "My-first-blog"
+category: "Casual"
+summary: "BRK BLOG testing."
 main_image: "blog/images/FirstBlog/main.png"
 thumbnail_image: "blog/images/FirstBlog/thumb.png"
 published_on: "2005-04-25 18:00:00"
