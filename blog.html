@@ -379,7 +379,7 @@
             container.innerHTML = "";
             secondaryContainer.innerHTML = "";
 
-            posts.forEach((post) => {
+            posts.forEach((post, index) => {
               const postHTML = `
                 <div role="listitem" class="post-collection-item w-dyn-item">
                   <a href="detail_post.html?slug=${
@@ -400,8 +400,12 @@
                   </a>
                 </div>
               `;
-              container.innerHTML += postHTML;
-              secondaryContainer.innerHTML += postHTML;
+
+              if (index < 3) {
+                container.innerHTML += postHTML;
+              } else {
+                secondaryContainer.innerHTML += postHTML;
+              }
             });
           })
           .catch((err) => console.error("Error fetching blog posts:", err));
