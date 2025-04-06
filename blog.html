@@ -60,8 +60,23 @@
             (n.className += t + "touch");
       })(window, document);
     </script>
-    <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
-    <link href="images/webclip.png" rel="apple-touch-icon" />
+    <!-- <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
+    <link href="images/webclip.png" rel="apple-touch-icon" /> -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/images/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg" />
+    <link rel="shortcut icon" href="/images/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/images/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="brk" />
+    <link rel="manifest" href="/images/site.webmanifest" />
   </head>
   <body>
     <div class="wrapper">
@@ -195,31 +210,17 @@
       </div>
       <div class="section">
         <div class="w-dyn-list">
-          <div role="list" class="blog-post-grid _3-cols w-dyn-items">
-            <div role="listitem" class="post-collection-item w-dyn-item">
-              <a href="#" class="post-item center-align w-inline-block">
-                <h3 class="post-item-title w-dyn-bind-empty"></h3>
-                <div class="post-item-image-container">
-                  <img
-                    loading="lazy"
-                    alt=""
-                    src=""
-                    class="post-item-image w-dyn-bind-empty"
-                  />
-                </div>
-                <div class="post-item-content-bottom">
-                  <h4 class="post-item-category w-dyn-bind-empty"></h4>
-                  <h5 class="post-item-date w-dyn-bind-empty"></h5>
-                </div>
-              </a>
-            </div>
-          </div>
+          <div
+            id="blog-posts-container"
+            role="list"
+            class="blog-post-grid _3-cols w-dyn-items"
+          ></div>
           <div class="w-dyn-empty">
             <div>No items found.</div>
-            <div id="blog-posts-container"></div>
           </div>
         </div>
       </div>
+
       <div class="section">
         <div class="container line-container">
           <div
@@ -280,36 +281,22 @@
           ></div>
         </div>
       </div>
+
       <div class="section">
         <div class="container">
           <div class="w-dyn-list">
-            <div role="list" class="blog-post-grid w-dyn-items">
-              <div role="listitem" class="post-collection-item w-dyn-item">
-                <a href="#" class="post-item w-inline-block">
-                  <div class="fade-in-2-slow-on-view">
-                    <h3 class="post-item-title w-dyn-bind-empty"></h3>
-                  </div>
-                  <div class="post-item-image-container">
-                    <img
-                      loading="lazy"
-                      alt=""
-                      src=""
-                      class="post-item-image w-dyn-bind-empty"
-                    />
-                  </div>
-                  <div class="post-item-content-bottom">
-                    <h4 class="post-item-category w-dyn-bind-empty"></h4>
-                    <h5 class="post-item-date w-dyn-bind-empty"></h5>
-                  </div>
-                </a>
-              </div>
-            </div>
+            <div
+              id="blog-posts-container-secondary"
+              role="list"
+              class="blog-post-grid w-dyn-items"
+            ></div>
             <div class="w-dyn-empty">
               <div>No items found.</div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="footer">
         <div class="container w-container">
           <div class="footer-title-container">
@@ -373,17 +360,48 @@
         fetch("/get_blog_posts.php")
           .then((response) => response.json())
           .then((posts) => {
-            let container = document.getElementById("blog-posts-container");
+            const container = document.getElementById("blog-posts-container");
+            const secondaryContainer = document.getElementById(
+              "blog-posts-container-secondary"
+            );
+
+            if (posts.length === 0) {
+              document
+                .querySelectorAll(".w-dyn-empty")
+                .forEach((el) => (el.style.display = "block"));
+              return;
+            } else {
+              document
+                .querySelectorAll(".w-dyn-empty")
+                .forEach((el) => (el.style.display = "none"));
+            }
+
+            container.innerHTML = "";
+            secondaryContainer.innerHTML = "";
 
             posts.forEach((post) => {
-              container.innerHTML += `
-              <div class="blog-post">
-                <img src="${post.main_image}" alt="${post.name}" />
-                <h2>${post.name}</h2>
-                <p>${post.summary}</p>
-                <a href="detail_post.html?slug=${post.slug}">Read More</a>
-              </div>
-            `;
+              const postHTML = `
+                <div role="listitem" class="post-collection-item w-dyn-item">
+                  <a href="detail_post.html?slug=${
+                    post.slug
+                  }" class="post-item center-align w-inline-block">
+                    <h3 class="post-item-title">${post.name}</h3>
+                    <div class="post-item-image-container">
+                      <img src="${post.main_image}" alt="${
+                post.name
+              }" class="post-item-image" />
+                    </div>
+                    <div class="post-item-content-bottom">
+                      <h4 class="post-item-category">${post.category}</h4>
+                      <h5 class="post-item-date">${new Date(
+                        post.published_on
+                      ).toLocaleDateString()}</h5>
+                    </div>
+                  </a>
+                </div>
+              `;
+              container.innerHTML += postHTML;
+              secondaryContainer.innerHTML += postHTML;
             });
           })
           .catch((err) => console.error("Error fetching blog posts:", err));
