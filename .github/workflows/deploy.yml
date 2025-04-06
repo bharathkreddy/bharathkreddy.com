@@ -16,10 +16,10 @@ jobs:
 
       - name: Create .env file dynamically
         run: |
-          echo "DB_SERVERNAME=${{ secrets.DB_SERVERNAME }}" >> .env
-          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-          echo "DB_DATABSE=${{ secrets.DB_DATABSE }}" >> .env
+          echo "DB_SERVERNAME=\"${{ secrets.DB_SERVERNAME }}\"" >> .env
+          echo "DB_USERNAME=\"${{ secrets.DB_USERNAME }}\"" >> .env
+          echo "DB_PASSWORD=\"${{ secrets.DB_PASSWORD }}\"" >> .env
+          echo "DB_DATABSE=\"${{ secrets.DB_DATABSE }}\"" >> .env
 
       - name: 📂 FTP Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
