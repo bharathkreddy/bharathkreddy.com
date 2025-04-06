@@ -20,10 +20,10 @@ if ($_POST['api_key'] !== $api_key) {
 
 // Database connection
 
-$servername = $_ENV['DB_SERVERNAME'];
-$username = $_ENV['DB_USERNAME'];
-$password = $_ENV['DB_PASSWORD'];
-$dbname = $_ENV['DB_NAME'];
+$servername = "localhost";
+$username = "u519573295_brk";
+$password = "Summer@21!";
+$dbname = "u519573295_brk";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

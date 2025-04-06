@@ -3,21 +3,24 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
-require_once __DIR__ . '/vendor/autoload.php';
+// require_once __DIR__ . '/vendor/autoload.php';
 
-use Dotenv\Dotenv;
+// use Dotenv\Dotenv;
 
-// Load .env from project root
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+// // Load .env from project root
+// $dotenv = Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
 
-// Database connection parameters
-$host = $_ENV['DB_SERVERNAME'];;        // replace with your DB host
-$dbname = $_ENV['DB_NAME'];  // replace with your DB name
-$user = $_ENV['DB_USERNAME'];  // replace with your DB username
-$password = $_ENV['DB_PASSWORD'];;// replace with your DB password
+// // Database connection parameters
+// $host = $_ENV['DB_SERVERNAME'];;        // replace with your DB host
+// $dbname = $_ENV['DB_NAME'];  // replace with your DB name
+// $user = $_ENV['DB_USERNAME'];  // replace with your DB username
+// $password = $_ENV['DB_PASSWORD'];;// replace with your DB password
 
-
+$host = "localhost";
+$user = "u519573295_brk";
+$password = "Summer@21!";
+$dbname = "u519573295_brk";
 
 // Connect to the database using PDO
 try {

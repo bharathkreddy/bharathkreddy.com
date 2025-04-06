@@ -4,18 +4,23 @@ header("Access-Control-Allow-Origin: *");
 
 $slug = $_GET['slug'];
 
-require_once __DIR__ . '/vendor/autoload.php';
+// require_once __DIR__ . '/vendor/autoload.php';
 
-use Dotenv\Dotenv;
+// use Dotenv\Dotenv;
 
-// Load .env from project root
-$dotenv = Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+// // Load .env from project root
+// $dotenv = Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
 
-$servername = $_ENV['DB_SERVERNAME'];
-$username = $_ENV['DB_USERNAME'];
-$password = $_ENV['DB_PASSWORD'];
-$dbname = $_ENV['DB_NAME'];
+// $servername = $_ENV['DB_SERVERNAME'];
+// $username = $_ENV['DB_USERNAME'];
+// $password = $_ENV['DB_PASSWORD'];
+// $dbname = $_ENV['DB_NAME'];
+
+$servername = "localhost";
+$username = "u519573295_brk";
+$password = "Summer@21!";
+$dbname = "u519573295_brk";
 
 $mysqli = new mysqli($servername, $username, $password, $dbname);
 
