@@ -100,7 +100,7 @@
         <div class="nav-bg-white"></div>
       </div>
       <div class="section">
-        <div class="container main-hero-container">
+        <!-- <div class="container main-hero-container">
           <div class="perspective">
             <div class="fade-in-2-slow-on-view">
               <h1 class="post-details-title w-dyn-bind-empty"></h1>
@@ -143,7 +143,16 @@
             style="opacity: 0"
             class="content-details w-dyn-bind-empty w-richtext"
           ></div>
+        </div> -->
+        <!-- new code start -->
+        <div class="container main-hero-container" id="post-detail-container">
+          <!-- Dynamic Blog Post Content Loaded Here -->
         </div>
+
+        <!-- <div class="horizontal-line-container">
+          <div class="horizontal-line"></div>
+        </div> -->
+        <!-- new code end -->
       </div>
       <div class="section">
         <div class="container line-container">
@@ -208,7 +217,15 @@
       <div class="section">
         <div class="container">
           <div class="w-dyn-list">
-            <div role="list" class="blog-post-grid w-dyn-items">
+            <!-- new code start -->
+            <div
+              id="blog-posts-container-secondary"
+              role="list"
+              class="blog-post-grid w-dyn-items"
+            ></div>
+            <!-- new code end.  -->
+
+            <!-- <div role="list" class="blog-post-grid w-dyn-items">
               <div role="listitem" class="post-collection-item w-dyn-item">
                 <a href="#" class="post-item w-inline-block">
                   <div class="fade-in-2-slow-on-view">
@@ -228,10 +245,10 @@
                   </div>
                 </a>
               </div>
-            </div>
-            <div class="w-dyn-empty">
+            </div> -->
+            <!-- <div class="w-dyn-empty">
               <div>No items found.</div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -303,18 +320,75 @@
         fetch(`/get_single_post.php?slug=${slug}`)
           .then((response) => response.json())
           .then((post) => {
+            const container = document.getElementById("post-detail-container");
             if (post.error) {
-              document.getElementById("post-detail-container").innerText =
-                "Post not found!";
+              container.innerHTML = "Post not found!";
               return;
             }
-            document.getElementById("post-detail-container").innerHTML = `
-        <h1>${post.name}</h1>
-        <img src="${post.main_image}" alt="${post.name}" />
-        ${post.post_body}
-      `;
+
+            container.innerHTML = `
+              <div class="perspective">
+                <div class="fade-in-2-slow-on-view" style="opacity: 1;">
+                  <h1 class="post-details-title">${post.name}</h1>
+                </div>
+                <img data-w-id="f58ee193-1f99-9f9b-a87e-abfe44f3abc0" loading="lazy" style="opacity: 1;" src="${post.main_image}" alt="${post.name}" class="post-detail-image" />
+                
+                <div class="w-layout-grid grid-6-columns">
+                  <div id="w-node-ea428a66-ffeb-86ca-a262-352421be21f8-46362f96" class="post-item-content-bottom">
+                    <h4 class="post-item-category" style="opacity: 1;">${post.category}</h4>
+                    <h5 class="post-item-date" style="opacity: 1;">${post.published_on}</h5>
+                  </div>
+                  <div id="w-node-_649d3aac-aab8-de00-e79e-280d29ee3758-46362f96" class="content">
+                    <div class="fade-in-slow-on-view" style="opacity: 1;">
+                      <h5>${post.summary}</h5>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="horizontal-line-container">
+                  <div class="horizontal-line"></div>
+                </div>
+                <div style="opacity: 1;" class="content-details w-richtext">
+                  ${post.post_body}
+                </div>
+              </div>  
+            `;
           })
           .catch((err) => console.error("Error:", err));
+
+        fetch("/get_blog_posts.php")
+          .then((response) => response.json())
+          .then((posts) => {
+            const secondaryContainer = document.getElementById(
+              "blog-posts-container-secondary"
+            );
+            secondaryContainer.innerHTML = "";
+            posts.forEach((post) => {
+              if (post.slug !== slug) {
+                secondaryContainer.innerHTML += `
+                  <div role="listitem" class="post-collection-item w-dyn-item">
+                    <a href="detail_post.html?slug=${
+                      post.slug
+                    }" class="post-item w-inline-block">
+                      <h3 class="post-item-title">${post.name}</h3>
+                      <div class="post-item-image-container">
+                        <img src="${post.main_image}" alt="${
+                  post.name
+                }" class="post-item-image" />
+                      </div>
+                      <div class="post-item-content-bottom">
+                        <h4 class="post-item-category">${post.category}</h4>
+                        <h5 class="post-item-date">${new Date(
+                          post.published_on
+                        ).toLocaleDateString()}</h5>
+                      </div>
+                    </a>
+                  </div>
+                `;
+              }
+            });
+          })
+          .catch((err) => console.error("Error fetching blog posts:", err));
       });
     </script>
   </body>

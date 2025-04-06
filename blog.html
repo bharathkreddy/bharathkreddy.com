@@ -410,9 +410,7 @@
             // change start ** to fix cursor **
             // Function to handle cursor effects on blog post items
             function attachCursorEvents(containerId) {
-              const items = document.querySelectorAll(
-                `#${containerId} .post-collection-item`
-              );
+              const items = document.querySelectorAll(".post-collection-item");
               const cursor = document.querySelector(".cursor");
               const cursorArrow = document.querySelector(".cursor-arrow");
               const cursorBigCircle =
@@ -420,15 +418,15 @@
 
               items.forEach((item) => {
                 item.addEventListener("mouseenter", () => {
-                  cursor.classList.add("link-hover");
-                  cursorArrow.style.display = "block";
-                  cursorBigCircle.style.transform = "scale(2)";
+                  cursor.classList.add(".cursor-big-circle");
+                  // cursorArrow.style.display = "block";
+                  // cursorBigCircle.style.transform = "scale(2)";
                 });
 
                 item.addEventListener("mouseleave", () => {
-                  cursor.classList.remove("link-hover");
-                  cursorArrow.style.display = "none";
-                  cursorBigCircle.style.transform = "scale(1)";
+                  cursor.classList.remove(".cursor-big-circle");
+                  // cursorArrow.style.display = "none";
+                  // cursorBigCircle.style.transform = "scale(1)";
                 });
               });
             }
