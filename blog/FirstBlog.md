@@ -10,7 +10,7 @@ published_on: "2005-04-25 18:00:00"
 
 ## Test of my frist automated blog.
 
-This is my implementation of templeting engines like jeykill + CMS
+This is my implementation of templeting engines like jeykill & also manages CMS
 
 ## How does it work?
 
