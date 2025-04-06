@@ -2145,6 +2145,10 @@ figcaption {
   align-self: end;
 }
 
+.project-item-image-holder > img {
+  grid-area: span 1 / span 4 / span 1 / span 4;
+}
+
 #w-node-_1e054c5c-9ab7-2189-2bff-5f0632cf9287-46362f93 {
   grid-area: span 1 / span 4 / span 1 / span 4;
 }
