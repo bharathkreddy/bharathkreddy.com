@@ -721,7 +721,7 @@ figcaption {
   display: flex;
 }
 
-.post-collection-item:hover {
+.post-collection-item {
   cursor: pointer;
   padding-top: 1em;
   padding-bottom: 1em;
