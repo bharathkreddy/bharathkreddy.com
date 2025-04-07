@@ -2367,3 +2367,12 @@ figcaption {
     grid-column: span 1 / span 1;
   }
 }
+
+.cursor.cursor-hover .cursor-big-circle {
+  transform: scale(1.5);
+  background-color: rgba(218, 218, 218, 0.9);
+}
+
+.cursor.cursor-hover .cursor-arrow {
+  display: block;
+}
