@@ -717,6 +717,29 @@
               `;
 
               projectsContainer.appendChild(projectElement);
+
+              // Add cursor effect event listeners
+              projectElement.addEventListener("mouseenter", () => {
+                const cursor = document.querySelector(".cursor");
+                cursor.classList.add("cursor-hover"); // Add a class to the main cursor
+                let cursorBigCircle =
+                  cursor.querySelector(".cursor-big-circle");
+                let cursorArrow = cursor.querySelector(".cursor-arrow");
+                if (cursorBigCircle) cursorBigCircle.style.opacity = 1;
+                if (cursorArrow) cursorArrow.style.display = "block";
+              });
+
+              projectElement.addEventListener("mouseleave", () => {
+                const cursor = document.querySelector(".cursor");
+                cursor.classList.remove("cursor-hover"); // Remove the class
+                let cursorBigCircle =
+                  cursor.querySelector(".cursor-big-circle");
+                let cursorArrow = cursor.querySelector(".cursor-arrow");
+                if (cursorBigCircle) cursorBigCircle.style.opacity = "";
+                if (cursorArrow) cursorArrow.style.display = "none";
+              });
+
+              // end cursor effect event listners
             });
           })
           .catch((err) => {
