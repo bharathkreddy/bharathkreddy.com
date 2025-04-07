@@ -2198,7 +2198,7 @@ figcaption {
 } */
 
 .content.mainpost {
-  grid-column: span 2 / span 2;
+  grid-column: 5 / 7;
 }
 
 #w-node-_4f27ca08-0fda-cecf-ef60-797126c7be87-46362f9b {
