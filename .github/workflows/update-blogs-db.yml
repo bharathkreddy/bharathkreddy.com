@@ -1,4 +1,4 @@
-name: Update Blog Database
+name: Update Blog Database (doesnt work as of now.)
 
 on:
   workflow_dispatch: # Enables manual trigger from GitHub Actions UI

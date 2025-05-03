@@ -21,6 +21,13 @@ jobs:
           echo "DB_PASSWORD=\"${{ secrets.DB_PASSWORD }}\"" >> .env
           echo "DB_DATABSE=\"${{ secrets.DB_DATABSE }}\"" >> .env
 
+      - name: 🔐 Generate send_email.php with SMTP secrets
+        run: |
+          sed -e "s|{{SMTP_USER}}|${{ secrets.SMTP_USER }}|g" \
+              -e "s|{{SMTP_PASS}}|${{ secrets.SMTP_PASS }}|g" \
+              -e "s|{{SMTP_TO}}|${{ secrets.SMTP_TO }}|g" \
+              send_email.template.php > send_email.php
+
       - name: 📂 FTP Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
