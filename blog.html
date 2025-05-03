@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!--  This site was created in Webflow. https://webflow.com  --><!--  Last Published: Sat Apr 05 2025 20:17:31 GMT+0000 (Coordinated Universal Time)  -->
 <html
   data-wf-page="67f13ff880e9ecbd46362f99"
   data-wf-site="67f13ff880e9ecbd46362f5a"
@@ -15,7 +14,6 @@
     <meta property="og:type" content="website" />
     <meta content="summary_large_image" name="twitter:card" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Webflow" name="generator" />
     <link href="css/normalize.css" rel="stylesheet" type="text/css" />
     <link href="css/webflow.css" rel="stylesheet" type="text/css" />
     <link
@@ -48,8 +46,7 @@
             (n.className += t + "touch");
       })(window, document);
     </script>
-    <!-- <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
-    <link href="images/webclip.png" rel="apple-touch-icon" /> -->
+
     <link
       rel="icon"
       type="image/png"
@@ -395,35 +392,27 @@
                 secondaryContainer.innerHTML += postHTML;
               }
             });
-            // change start ** to fix cursor **
-            // Function to handle cursor effects on blog post items
-            function attachCursorEvents(containerId) {
-              const items = document.querySelectorAll(".post-collection-item");
-              const cursor = document.querySelector(".cursor");
-              const cursorArrow = document.querySelector(".cursor-arrow");
-              const cursorBigCircle =
-                document.querySelector(".cursor-big-circle");
 
-              items.forEach((item) => {
-                item.addEventListener("mouseenter", () => {
-                  cursor.classList.add(".cursor-big-circle");
-                  // cursorArrow.style.display = "block";
-                  // cursorBigCircle.style.transform = "scale(2)";
-                });
+            // function attachCursorEvents(containerId) {
+            //   const items = document.querySelectorAll(".post-collection-item");
+            //   const cursor = document.querySelector(".cursor");
+            //   const cursorArrow = document.querySelector(".cursor-arrow");
+            //   const cursorBigCircle =
+            //     document.querySelector(".cursor-big-circle");
 
-                item.addEventListener("mouseleave", () => {
-                  cursor.classList.remove(".cursor-big-circle");
-                  // cursorArrow.style.display = "none";
-                  // cursorBigCircle.style.transform = "scale(1)";
-                });
-              });
-            }
+            //   items.forEach((item) => {
+            //     item.addEventListener("mouseenter", () => {
+            //       cursor.classList.add(".cursor-big-circle");
+            //     });
 
-            // Attach cursor events to both containers
-            attachCursorEvents("blog-posts-container");
-            attachCursorEvents("blog-posts-container-secondary");
+            //     item.addEventListener("mouseleave", () => {
+            //       cursor.classList.remove(".cursor-big-circle");
+            //     });
+            //   });
+            // }
 
-            // change end ** to fix cursor **
+            // attachCursorEvents("blog-posts-container");
+            // attachCursorEvents("blog-posts-container-secondary");
           })
           .catch((err) => console.error("Error fetching blog posts:", err));
       });

@@ -14,7 +14,6 @@
     <meta property="og:type" content="website" />
     <meta content="summary_large_image" name="twitter:card" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Webflow" name="generator" />
     <link href="css/normalize.css" rel="stylesheet" type="text/css" />
     <link href="css/webflow.css" rel="stylesheet" type="text/css" />
     <link
@@ -47,8 +46,7 @@
             (n.className += t + "touch");
       })(window, document);
     </script>
-    <!-- <link href="images/favicon.png" rel="shortcut icon" type="image/x-icon" />
-    <link href="images/webclip.png" rel="apple-touch-icon" /> -->
+
     <link
       rel="icon"
       type="image/png"
@@ -422,41 +420,6 @@
           >
             <!-- Dynamic projects loaded here -->
           </div>
-
-          <!-- works fine above this line -->
-
-          <!-- <div role="list" class="project-collection-list w-dyn-items">
-            <div role="listitem" class="project-collection-item w-dyn-item">
-              <a href="#" class="project-item w-inline-block">
-                <div class="project-item-image-holder">
-                  <img
-                    alt=""
-                    src=""
-                    class="project-item-image w-dyn-bind-empty"
-                  />
-                  <div class="project-item-image-overlay"></div>
-                </div>
-                <div class="project-item-content">
-                  <div class="perspective">
-                    <div class="perspective-load1-on-view">
-                      <h3 class="project-item-title w-dyn-bind-empty"></h3>
-                    </div>
-                  </div>
-                  <div class="project-item-arrow-holder">
-                    <img
-                      src="images/Link-Arrow.svg"
-                      alt=""
-                      class="project-item-arrow"
-                    />
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div> -->
-          <!-- works fine below this line -->
-          <!-- <div class="w-dyn-empty">
-            <div>No items found.</div>
-          </div> -->
         </div>
       </div>
     </div>
@@ -706,25 +669,25 @@
               projectsContainer.appendChild(projectElement);
 
               // Add cursor effect event listeners
-              projectElement.addEventListener("mouseenter", () => {
-                const cursor = document.querySelector(".cursor");
-                cursor.classList.add("cursor-hover"); // Add a class to the main cursor
-                let cursorBigCircle =
-                  cursor.querySelector(".cursor-big-circle");
-                let cursorArrow = cursor.querySelector(".cursor-arrow");
-                if (cursorBigCircle) cursorBigCircle.style.opacity = 1;
-                if (cursorArrow) cursorArrow.style.display = "block";
-              });
+              // projectElement.addEventListener("mouseenter", () => {
+              //   const cursor = document.querySelector(".cursor");
+              //   cursor.classList.add("cursor-hover"); // Add a class to the main cursor
+              //   let cursorBigCircle =
+              //     cursor.querySelector(".cursor-big-circle");
+              //   let cursorArrow = cursor.querySelector(".cursor-arrow");
+              //   if (cursorBigCircle) cursorBigCircle.style.opacity = 1;
+              //   if (cursorArrow) cursorArrow.style.display = "block";
+              // });
 
-              projectElement.addEventListener("mouseleave", () => {
-                const cursor = document.querySelector(".cursor");
-                cursor.classList.remove("cursor-hover"); // Remove the class
-                let cursorBigCircle =
-                  cursor.querySelector(".cursor-big-circle");
-                let cursorArrow = cursor.querySelector(".cursor-arrow");
-                if (cursorBigCircle) cursorBigCircle.style.opacity = "";
-                if (cursorArrow) cursorArrow.style.display = "none";
-              });
+              // projectElement.addEventListener("mouseleave", () => {
+              //   const cursor = document.querySelector(".cursor");
+              //   cursor.classList.remove("cursor-hover"); // Remove the class
+              //   let cursorBigCircle =
+              //     cursor.querySelector(".cursor-big-circle");
+              //   let cursorArrow = cursor.querySelector(".cursor-arrow");
+              //   if (cursorBigCircle) cursorBigCircle.style.opacity = "";
+              //   if (cursorArrow) cursorArrow.style.display = "none";
+              // });
 
               // end cursor effect event listners
             });
