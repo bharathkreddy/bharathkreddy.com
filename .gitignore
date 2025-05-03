@@ -1,2 +1,6 @@
 cms_files/
 .env
+template/
+api/
+blog/
+

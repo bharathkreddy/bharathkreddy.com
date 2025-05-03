@@ -85,6 +85,10 @@ a:hover {
   text-decoration: underline;
 }
 
+.skill-panel a {
+  background-color: var(--color-grey);
+}
+
 ul,
 ol {
   max-width: 900px;
