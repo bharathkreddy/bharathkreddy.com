@@ -39,17 +39,160 @@
     <link rel="manifest" href="/images/site.webmanifest" />
 
     <style>
+      /* ── Scroll arrow ── */
+      .scroll-arrow-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.6rem;
+        margin-top: 2.5rem;
+      }
+      .scroll-arrow-label {
+        font-family: Manrope, sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.35);
+      }
+      .scroll-arrow-svg {
+        width: 28px;
+        height: 42px;
+        animation: arrowBounce 1.8s ease-in-out infinite;
+      }
+      .scroll-arrow-svg line, .scroll-arrow-svg polyline {
+        stroke: #000;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+      }
+      @keyframes arrowBounce {
+        0%, 100% { transform: translateY(0); opacity: 0.5; }
+        50%       { transform: translateY(7px); opacity: 1; }
+      }
+
+      /* ── Manifesto section ── */
+      .manifesto-section {
+        background: #fff;
+        padding: 7vw 0 5vw;
+      }
+      .manifesto-statement {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 3.5rem 0;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        align-items: start;
+      }
+      .manifesto-statement:first-child { border-top: none; }
+      .manifesto-num {
+        font-family: Manrope, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: rgba(0,0,0,0.18);
+        text-transform: uppercase;
+        padding-top: 0.4rem;
+      }
+      .manifesto-text {
+        font-family: Manrope, sans-serif;
+        font-size: clamp(22px, 2.4vw, 36px);
+        font-weight: 300;
+        line-height: 1.45;
+        color: #0a0a0a;
+        margin: 0;
+      }
+      .manifesto-text strong {
+        font-weight: 600;
+      }
+      .manifesto-divider {
+        border: none;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        margin: 4rem 0 3rem;
+      }
+      .manifesto-meta {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 2rem 0;
+      }
+      .manifesto-meta-label {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.3);
+        padding-top: 0.2rem;
+      }
+      .manifesto-meta-content {
+        font-family: Manrope, sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(0,0,0,0.65);
+        margin: 0;
+      }
+      .manifesto-meta-content strong {
+        font-weight: 600;
+        color: rgba(0,0,0,0.75);
+      }
+      @media screen and (max-width: 767px) {
+        .manifesto-statement { grid-template-columns: 1fr; gap: 0.5rem; }
+        .manifesto-meta { grid-template-columns: 1fr; gap: 0.3rem; }
+        .manifesto-text { font-size: 20px; }
+      }
+
+      /* ── CV scroll progress ── */
+      #cv-progress {
+        position: fixed;
+        right: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 140px;
+        z-index: 100;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      #cv-progress.visible { opacity: 1; }
+      #cv-progress-track {
+        width: 1px;
+        flex: 1;
+        background: rgba(255,255,255,0.12);
+        position: relative;
+        border-radius: 1px;
+      }
+      #cv-progress-fill {
+        position: absolute;
+        top: 0; left: 0; width: 100%;
+        background: rgba(255,255,255,0.7);
+        border-radius: 1px;
+        transition: height 0.15s ease;
+      }
+      #cv-progress-year {
+        font-family: Manrope, sans-serif;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: rgba(255,255,255,0.45);
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        white-space: nowrap;
+      }
+      @media screen and (max-width: 767px) { #cv-progress { display: none; } }
+
       /* ── Mobile: about/skills section ── */
       @media screen and (max-width: 767px) {
-        .skill-panel .w-layout-grid.grid-skills {
-          display: block;
-        }
-        .skill-panel .w-layout-grid.grid-skills .content:first-child {
-          margin-bottom: 0.5rem;
-        }
-        .skill-panel .w-layout-grid.grid-skills .heading-1 {
-          font-size: 2rem;
-        }
+        .skill-panel .w-layout-grid.grid-skills { display: block; }
+        .skill-panel .w-layout-grid.grid-skills .content:first-child { margin-bottom: 0.5rem; }
+        .skill-panel .w-layout-grid.grid-skills .heading-1 { font-size: 2rem; }
       }
 
       /* ── CV Particle Section ── */
@@ -232,44 +375,12 @@
               id="w-node-c3f32631-6e7f-fd2b-83df-bd58ae7b1a25-46362f91"
               class="hero-left-description-content"
             >
-              <div class="perspective">
-                <div
-                  style="
-                    -webkit-transform: translate3d(null, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    -moz-transform: translate3d(null, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    -ms-transform: translate3d(null, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform: translate3d(null, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform-style: preserve-3d; opacity: 0;"
-                  class="perspective-load3"
-                >
-                  <h3 class="hero-description big">My</h3>
-                </div>
-              </div>
-              <div class="perspective">
-                <div
-                  style="
-                    -webkit-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    -moz-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    -ms-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform-style: preserve-3d; opacity: 0;"
-                  class="perspective-load4"
-                >
-                  <h3 class="hero-description big">Portfolio</h3>
-                </div>
-              </div>
-              <div class="perspective">
-                <div
-                  style="
-                    -webkit-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    -moz-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    -ms-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1) rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                    transform-style: preserve-3d; opacity: 0;"
-                  class="perspective-load5"
-                >
-                  <h3 class="hero-description big">Showcase™</h3>
-                </div>
+              <div class="scroll-arrow-wrap">
+                <span class="scroll-arrow-label">scroll</span>
+                <svg class="scroll-arrow-svg" viewBox="0 0 28 42" xmlns="http://www.w3.org/2000/svg">
+                  <line x1="14" y1="0" x2="14" y2="30"/>
+                  <polyline points="5,21 14,32 23,21"/>
+                </svg>
               </div>
             </div>
             <div
@@ -323,7 +434,7 @@
                   id="w-node-cd46b381-382c-db0e-05b8-21bf07ccbceb-46362f91"
                   class="hero-left-description-content"
                 >
-                  <h5
+                  <h3
                     data-w-id="cd46b381-382c-db0e-05b8-21bf07ccbcec"
                     style="
                       opacity: 0;
@@ -331,10 +442,10 @@
                       -moz-transform: translate3d(0, 20px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
                       -ms-transform: translate3d(0, 20px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
                       transform: translate3d(0, 20px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);"
-                    class="hero-description white"
+                    class="hero-description big white"
                   >
-                    AI Product Lead at FINBOURNE Technology, based in London
-                  </h5>
+                    building candela AI<br/>at FINBOURNE
+                  </h3>
                 </div>
                 <div
                   id="w-node-cd46b381-382c-db0e-05b8-21bf07ccbcef-46362f91"
@@ -400,6 +511,12 @@
     </div>
 
 
+
+    <!-- CV SCROLL PROGRESS -->
+    <div id="cv-progress">
+      <span id="cv-progress-year">2008</span>
+      <div id="cv-progress-track"><div id="cv-progress-fill" style="height:0%"></div></div>
+    </div>
 
     <!-- CV PARTICLE SECTION -->
     <div class="cv-scroll-section" id="cv-scroll-section">
@@ -488,107 +605,57 @@
       </div>
     </div>
 
-    <!-- ABOUT SECTION -->
-    <div class="section overflow-hidden">
+    <!-- MANIFESTO SECTION -->
+    <div class="manifesto-section">
       <div class="container">
 
-        <!-- Section heading -->
-        <div class="w-layout-grid grid-6-columns" style="margin-bottom:3rem">
-          <div id="w-node-_741da83a-78d3-18d9-8e12-bc788baec05e-46362f91" class="content">
-            <div class="heading-container">
-              <div class="perspective">
-                <div class="perspective-load1-on-view">
-                  <h3 class="no-margin-bottom">A bit</h3>
-                </div>
-                <div class="perspective-load2-on-view">
-                  <h3 class="no-margin-top">about me.</h3>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="manifesto-statement">
+          <span class="manifesto-num">01</span>
+          <p class="manifesto-text">
+            I build at the intersection where <strong>17 years of financial domain depth meets engineering instinct</strong> — a combination rare enough that I’ve spent most of my career doing work that didn’t exist in a job description yet.
+          </p>
         </div>
 
-        <!-- Bio -->
-        <div class="skill-panel">
-          <div class="w-layout-grid grid-skills">
-            <div class="content">
-              <div class="perspective">
-                <div class="perspective-load1-on-view">
-                  <h2 class="heading-1">Who</h2>
-                </div>
-              </div>
-            </div>
-            <div class="content">
-              <div class="fade-in-2-slow-on-view">
-                <p>
-                  I sit at the intersection of software engineering, data science, and capital markets operations — a combination rare enough that I've spent most of my career building things that didn't exist yet. I'm drawn to problems where the answer isn't obvious, the domain is complex, and the solution has to actually work in production.
-                </p>
-                <p>
-                  Right now I'm building Candela at FINBOURNE — an agentic AI platform that gives investment operations teams AI that doesn't just answer questions but executes real workflows against live financial data. Before that, I spent over a decade at Northern Trust progressively moving from operations, to risk, to data science, to leading transformation at the SVP level.
-                </p>
-                <p>
-                  Outside of work I read obsessively, think too much about distributed systems, and occasionally teach data science to people who've never written a line of code.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div class="manifesto-statement">
+          <span class="manifesto-num">02</span>
+          <p class="manifesto-text">
+            I don’t prototype. <strong>Candela</strong> — the agentic AI platform I’m building at FINBOURNE — executes real investment workflows against live production data. Fund onboarding, compliance checks, portfolio analysis: done by agents, not described by them.
+          </p>
         </div>
 
-        <!-- Academics -->
-        <div class="skill-panel">
-          <div class="w-layout-grid grid-skills">
-            <div class="content">
-              <div class="perspective">
-                <div class="perspective-load1-on-view">
-                  <h2 class="heading-1">Study</h2>
-                </div>
-              </div>
-            </div>
-            <div class="content">
-              <div class="fade-in-2-slow-on-view">
-                <p><strong>2022</strong> &mdash; Post Graduate Diploma in DevOps &middot; Caltech</p>
-                <p><strong>2020</strong> &mdash; Post Graduate Programme in AI &amp; ML &middot; University of Texas at Austin</p>
-                <p><strong>2018</strong> &mdash; IOB Diploma in Banking &middot; University of Ireland</p>
-                <p><strong>2008</strong> &mdash; MBA Finance <em>(Gold Medalist)</em> &middot; Edith Cowan University</p>
-                <p><strong>2006</strong> &mdash; B.Tech, Electrical &amp; Electronics Engineering &middot; JNTU</p>
-              </div>
-            </div>
-          </div>
-          <div class="skill-top-border"></div>
+        <div class="manifesto-statement">
+          <span class="manifesto-num">03</span>
+          <p class="manifesto-text">
+            I once taught machine learning to <strong>260 people who had never written a line of code</strong>. That instinct — to make the genuinely complex feel inevitable — is how I build products too.
+          </p>
         </div>
 
-        <!-- Tech Skills -->
-        <div class="skill-panel">
-          <div class="w-layout-grid grid-skills">
-            <div class="content">
-              <div class="perspective">
-                <div class="perspective-load1-on-view">
-                  <h2 class="heading-1">Stack</h2>
-                </div>
-              </div>
-            </div>
-            <div class="content">
-              <div class="fade-in-2-slow-on-view">
-                <p>
-                  <strong>Languages &amp; runtimes</strong><br/>
-                  Python &middot; C# / .NET &middot; TypeScript / Node.js &middot; Rust &middot; SQL
-                </p>
-                <p>
-                  <strong>AI &amp; ML</strong><br/>
-                  AWS Bedrock &middot; Model Context Protocol (MCP) &middot; Agentic systems &middot; MLOps &middot; LLM evaluation frameworks
-                </p>
-                <p>
-                  <strong>Data &amp; architecture</strong><br/>
-                  Distributed systems &middot; Kimball &amp; Data Vault 2.0 modelling &middot; Relational, document, key-value &amp; graph databases &middot; Event-driven architecture
-                </p>
-                <p>
-                  <strong>Domain</strong><br/>
-                  Fund Accounting &middot; Asset servicing &middot; Investment data platforms &middot; Risk &amp; Control frameworks
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="skill-top-border"></div>
+        <hr class="manifesto-divider"/>
+
+        <div class="manifesto-meta">
+          <span class="manifesto-meta-label">Study</span>
+          <p class="manifesto-meta-content">
+            <strong>Caltech</strong> &mdash; PG Diploma, DevOps
+            &nbsp;&middot;&nbsp;
+            <strong>UT Austin</strong> &mdash; PGP, AI &amp; ML
+            &nbsp;&middot;&nbsp;
+            <strong>Uni. Ireland</strong> &mdash; IOB Banking
+            &nbsp;&middot;&nbsp;
+            <strong>Edith Cowan</strong> &mdash; MBA Finance <em>(Gold Medal)</em>
+            &nbsp;&middot;&nbsp;
+            <strong>JNTU</strong> &mdash; B.Tech, EEE
+          </p>
+        </div>
+
+        <div class="manifesto-meta">
+          <span class="manifesto-meta-label">Stack</span>
+          <p class="manifesto-meta-content">
+            Python &middot; C# / .NET &middot; TypeScript &middot; Rust &middot; SQL
+            &nbsp;&mdash;&nbsp;
+            AWS Bedrock &middot; MCP &middot; Agentic systems &middot; MLOps
+            &nbsp;&mdash;&nbsp;
+            Distributed systems &middot; Data Vault 2.0 &middot; Graph, relational &amp; document DBs
+          </p>
         </div>
 
       </div>
@@ -684,6 +751,63 @@
           // a "vividness" that increases with state index
           var pbirth=new Uint8Array(N); // 0=blue family, 1=green family
 
+          // ── State 5 per-particle data ──
+          var p5homeX  = new Float32Array(N); // brain body anchor X
+          var p5homeY  = new Float32Array(N); // brain body anchor Y
+          var p5type   = new Uint8Array(N);   // 0=blue brain,1=blue stream,2=green brain,3=green stream
+          var p5streamT= new Float32Array(N); // stream bezier t [0..1]
+          var p5ctrlX  = new Float32Array(N); // per-stream-particle perpendicular jitter X
+          var p5ctrlY  = new Float32Array(N); // per-stream-particle perpendicular jitter Y
+          var p5phase  = new Float32Array(N); // per-particle oscillation phase
+          var s5startFrame = -1;
+          // Single shared stream bezier (set in buildBanks, read in tick)
+          var s5stP0x=0,s5stP0y=0;     // stream start (right side of blue brain)
+          var s5stP2x=0,s5stP2y=0;     // stream end   (left side of green brain)
+          var s5stCtrlX=0,s5stCtrlY=0; // arc control point (above midline)
+          // Gradient buckets for stream rendering
+          var S5_NBKT=12;
+          var s5bs=[],s5gs=[];   // blue stream, green stream buckets
+          for(var _bk=0;_bk<S5_NBKT;_bk++){s5bs.push([]);s5gs.push([]);}
+          var s5bb=[],s5gb=[];   // blue brain, green brain (one colour per frame)
+
+          // ── Brain silhouette: lateral view (right-facing) ──
+          // theta=0 right(back), pi/2 up(top), pi left(front), -pi/2 down(bottom)
+          function s5Brain(theta){
+            // Base elongated oval, wider at back
+            var base = 0.82 + 0.23*Math.cos(theta - 0.12);
+            // Dome top, flatten bottom (brain sits on brainstem)
+            var vert = -0.30*Math.sin(theta) - 0.06*Math.sin(2*theta+0.4);
+            // Major lobes: frontal (front), parietal (top), occipital (back), temporal (bottom-front)
+            var lobes =
+              + 0.13*Math.cos(2*theta - 0.30)   // fronto-parietal bulge
+              + 0.09*Math.cos(3*theta + 0.90)   // parieto-occipital + temporal indent
+              + 0.05*Math.cos(4*theta - 0.55)   // secondary lobe definition
+              - 0.05*Math.cos(theta + 2.65)     // cerebellar notch (bottom-back depression)
+              + 0.03*Math.cos(5*theta + 1.20);  // tertiary lobe
+            // Gyri (cortical folds) — multiple harmonics for realism
+            var gyri =
+              + 0.042*Math.cos(7*theta  + 0.35)
+              + 0.028*Math.cos(10*theta + 1.10)
+              + 0.018*Math.cos(13*theta - 0.65)
+              + 0.011*Math.cos(17*theta + 0.90)
+              + 0.007*Math.cos(22*theta - 0.20);
+            // Biological asymmetry
+            var asymm = -0.018*Math.sin(2*theta - 0.8) - 0.008*Math.sin(4*theta + 1.4);
+            return base + vert + lobes + gyri + asymm;
+          }
+
+          // Uniformly distributed point inside the brain shape
+          function s5BrainPt(cx, cy, rx, ry, flip){
+            var theta = rn()*6.2832;
+            var r = Math.sqrt(rn()); // sqrt = uniform area distribution
+            var st = flip ? Math.PI - theta : theta; // mirror for left-facing brain
+            var boundary = Math.max(0.12, s5Brain(st));
+            return [
+              cx + Math.cos(theta)*r*boundary*rx,
+              cy + Math.sin(theta)*r*boundary*ry
+            ];
+          }
+
           // ── Build all 6 position banks ──
           function buildBanks(){
             var cx=W*0.5, cy=H*0.5, R=Math.min(W,H);
@@ -747,15 +871,74 @@
               BY[4][i]=waveY+gauss()*H*0.022;
             }
 
-            // ─ STATE 5: 2025 — Two vivid clouds converging (AI agents in dialogue) ─
+            // ─ STATE 5: 2025 — Two interacting brains with shared stream ─
             sr(25);
+            var bLCX=W*0.26, bLCY=H*0.50;         // blue brain centre (left)
+            var bRCX=W*0.74, bRCY=H*0.50;         // green brain centre (right)
+            var bRX=Math.min(W,H)*0.195;           // brain x-radius
+            var bRY=Math.min(W,H)*0.145;           // brain y-radius
+
+            // Single shared stream bezier
+            s5stP0x=bLCX+bRX*0.88; s5stP0y=bLCY;  // leaves right edge of blue brain
+            s5stP2x=bRCX-bRX*0.88; s5stP2y=bRCY;  // enters left edge of green brain
+            s5stCtrlX=(s5stP0x+s5stP2x)*0.5;
+            s5stCtrlY=(s5stP0y+s5stP2y)*0.5-H*0.16; // arc above midline
+
+            // Classify particles: 20% of each colour family → stream
+            var bCount=0, gCount=0;
+            for(var i=0;i<N;i++){ if(pbirth[i]===0) bCount++; else gCount++; }
+            var nBS=Math.floor(bCount*0.20); // blue stream count
+            var nGS=Math.floor(gCount*0.20); // green stream count
+            var bSeen=0, gSeen=0;
+
+            // Perpendicular direction to stream (for stream width jitter)
+            var stDx=s5stP2x-s5stP0x, stDy=s5stP2y-s5stP0y;
+            var stLen=Math.sqrt(stDx*stDx+stDy*stDy)||1;
+            var stNx=-stDy/stLen, stNy=stDx/stLen; // normal vector
+            var streamWidth=bRY*0.18; // narrow tube
+
             for(var i=0;i<N;i++){
+              p5phase[i]=rn()*6.2832; // oscillation phase offset per particle
               if(pbirth[i]===0){
-                BX[5][i]=cx*0.62+gauss()*W*0.14;
-                BY[5][i]=cy*0.80+gauss()*H*0.18;
+                bSeen++;
+                if(bSeen<=nBS){
+                  // Blue stream particle: flows blue brain → green brain (t increases)
+                  p5type[i]=1;
+                  p5streamT[i]=rn();  // random initial position along stream
+                  var t2=p5streamT[i], t1=1-t2;
+                  var bxc=t1*t1*s5stP0x+2*t1*t2*s5stCtrlX+t2*t2*s5stP2x;
+                  var byc=t1*t1*s5stP0y+2*t1*t2*s5stCtrlY+t2*t2*s5stP2y;
+                  var jit=(rn()-0.5)*streamWidth*2;
+                  p5ctrlX[i]=stNx*jit; p5ctrlY[i]=stNy*jit; // perpendicular jitter
+                  BX[5][i]=bxc+p5ctrlX[i]; BY[5][i]=byc+p5ctrlY[i];
+                  p5homeX[i]=BX[5][i]; p5homeY[i]=BY[5][i]; // unused for stream
+                } else {
+                  // Blue brain body
+                  p5type[i]=0;
+                  var bp=s5BrainPt(bLCX,bLCY,bRX,bRY,false);
+                  p5homeX[i]=bp[0]; p5homeY[i]=bp[1];
+                  BX[5][i]=bp[0]; BY[5][i]=bp[1];
+                }
               } else {
-                BX[5][i]=cx*1.38+gauss()*W*0.14;
-                BY[5][i]=cy*1.20+gauss()*H*0.18;
+                gSeen++;
+                if(gSeen<=nGS){
+                  // Green stream particle: flows green brain → blue brain (t decreases)
+                  p5type[i]=3;
+                  p5streamT[i]=rn();  // random initial position
+                  var t2=p5streamT[i], t1=1-t2;
+                  var bxc=t1*t1*s5stP0x+2*t1*t2*s5stCtrlX+t2*t2*s5stP2x;
+                  var byc=t1*t1*s5stP0y+2*t1*t2*s5stCtrlY+t2*t2*s5stP2y;
+                  var jit=(rn()-0.5)*streamWidth*2;
+                  p5ctrlX[i]=stNx*jit; p5ctrlY[i]=stNy*jit;
+                  BX[5][i]=bxc+p5ctrlX[i]; BY[5][i]=byc+p5ctrlY[i];
+                  p5homeX[i]=BX[5][i]; p5homeY[i]=BY[5][i];
+                } else {
+                  // Green brain body
+                  p5type[i]=2;
+                  var bp=s5BrainPt(bRCX,bRCY,bRX,bRY,true);
+                  p5homeX[i]=bp[0]; p5homeY[i]=bp[1];
+                  BX[5][i]=bp[0]; BY[5][i]=bp[1];
+                }
               }
             }
           }
@@ -776,6 +959,17 @@
           function setState(s){
             s=Math.max(0,Math.min(NS-1,s|0));
             if(s===bTo&&bT>=1) return;
+            if(s!==5) s5startFrame=-1;
+            if(s===5){
+              // Snap immediately — brains appear fully formed, no blend
+              bFrom=5; bTo=5; bT=1.0;
+              for(var i=0;i<N;i++){
+                px[i]=BX[5][i]; py[i]=BY[5][i];
+                pvx[i]=0; pvy[i]=0;
+                ptx[i]=BX[5][i]; pty[i]=BY[5][i];
+              }
+              return;
+            }
             bFrom=bTo; bTo=s; bT=0;
           }
 
@@ -842,60 +1036,209 @@
             drawEdges(edgeA);
 
             // Physics tuning per state
-            var KS=[0.028,0.050,0.038,0.032,0.036,0.042];
-            var KD=[0.845,0.880,0.860,0.850,0.855,0.870];
-            var KN=[0.40, 0.04, 0.12, 0.18, 0.10, 0.08];
+            // KS=spring, KD=damping, KN=noise (higher = more ambient motion)
+            var KS=[0.022,0.040,0.030,0.026,0.028,0.034];
+            var KD=[0.920,0.930,0.925,0.920,0.922,0.928]; // higher = slower decay = more drift
+            var KN=[0.55, 0.22, 0.38, 0.42, 0.35, 0.28]; // much more noise on all states
             var k=bT>=1?KS[bTo]:KS[bFrom]+(KS[bTo]-KS[bFrom])*bT;
             var d=bT>=1?KD[bTo]:KD[bFrom]+(KD[bTo]-KD[bFrom])*bT;
             var n=bT>=1?KN[bTo]:KN[bFrom]+(KN[bTo]-KN[bFrom])*bT;
-            var ft=frame*0.007;
+            var ft=frame*0.005; // slower frequency = smoother flowing motion
 
-            // Colour interpolation between states
-            var col0=STATE_HUE[bFrom], col1=STATE_HUE[bTo];
-            var e2=bT<0.5?2*bT*bT:1-Math.pow(-2*bT+2,2)/2;
-            var cr0=col0[0]+(col1[0]-col0[0])*e2,cg0=col0[1]+(col1[1]-col0[1])*e2,cb0=col0[2]+(col1[2]-col0[2])*e2;
-            var cr1=col0[3]+(col1[3]-col0[3])*e2,cg1=col0[4]+(col1[4]-col0[4])*e2,cb1=col0[5]+(col1[5]-col0[5])*e2;
-            var opa=col0[6]+(col1[6]-col0[6])*e2;
+            if(bTo===5 && bT>=1){
+              // ─── STATE 5: Two brains + single bidirectional stream ───
+              if(s5startFrame<0) s5startFrame=frame;
 
-            // Two passes: blue family, green family
-            var pass;
-            for(pass=0;pass<2;pass++){
-              ctx.beginPath();
-              var hasP=false;
+              // Stream flow speeds (blue goes right, green goes left)
+              var s5dt=0.0020;
+
+              // Clear render buckets
+              s5bb.length=0; s5gb.length=0;
+              for(var b5=0;b5<S5_NBKT;b5++){ s5bs[b5].length=0; s5gs[b5].length=0; }
+
+              // Global brain colour oscillation (alternating, ~10s period)
+              var oscB=(Math.sin(frame*0.0095)+1)*0.5;        // 0→1→0, blue brain
+              var oscG=(Math.sin(frame*0.0095+Math.PI)+1)*0.5; // opposite phase, green brain
+
               for(var i=0;i<N;i++){
-                if(pbirth[i]!==pass) continue;
-                // physics (only run on pass 0 to avoid double update)
-                if(pass===0){
-                  pvx[i]+=(ptx[i]-px[i])*k;
-                  pvy[i]+=(pty[i]-py[i])*k;
-                  pvx[i]+=Math.sin(ft*1.1+pno[i])*n;
-                  pvy[i]+=Math.cos(ft*0.75+pno[i]*1.4)*n;
-                  pvx[i]*=d; pvy[i]*=d;
-                  px[i]+=pvx[i]; py[i]+=pvy[i];
+                var tp=p5type[i];
+
+                if(tp===1){
+                  // ─ Blue stream: advance t rightward (blue→green brain) ─
+                  p5streamT[i]+=s5dt;
+                  if(p5streamT[i]>1.0) p5streamT[i]-=1.0;
+                  var st2=p5streamT[i], st1=1-st2;
+                  ptx[i]=st1*st1*s5stP0x+2*st1*st2*s5stCtrlX+st2*st2*s5stP2x+p5ctrlX[i];
+                  pty[i]=st1*st1*s5stP0y+2*st1*st2*s5stCtrlY+st2*st2*s5stP2y+p5ctrlY[i];
+                  pvx[i]+=(ptx[i]-px[i])*0.055; // tight stream spring
+                  pvy[i]+=(pty[i]-py[i])*0.055;
+                  pvx[i]+=Math.sin(ft*0.6+pno[i])*n*0.18;
+                  pvy[i]+=Math.cos(ft*0.4+pno[i]*1.1)*n*0.18;
+                  // Colour bucket: blue(t=0) → green(t=1)
+                  var sb=(p5streamT[i]*(S5_NBKT-0.001))|0;
+                  s5bs[sb].push(i);
+
+                } else if(tp===3){
+                  // ─ Green stream: advance t leftward (green→blue brain) ─
+                  p5streamT[i]-=s5dt*0.85; // slightly slower for visual interest
+                  if(p5streamT[i]<0.0) p5streamT[i]+=1.0;
+                  var st2=p5streamT[i], st1=1-st2;
+                  ptx[i]=st1*st1*s5stP0x+2*st1*st2*s5stCtrlX+st2*st2*s5stP2x+p5ctrlX[i];
+                  pty[i]=st1*st1*s5stP0y+2*st1*st2*s5stCtrlY+st2*st2*s5stP2y+p5ctrlY[i];
+                  pvx[i]+=(ptx[i]-px[i])*0.055;
+                  pvy[i]+=(pty[i]-py[i])*0.055;
+                  pvx[i]+=Math.sin(ft*0.6+pno[i])*n*0.18;
+                  pvy[i]+=Math.cos(ft*0.4+pno[i]*1.1)*n*0.18;
+                  // Colour bucket: green(t=1) → blue(t=0) — invert t for colour
+                  var sb=((1-p5streamT[i])*(S5_NBKT-0.001))|0;
+                  s5gs[sb].push(i);
+
+                } else {
+                  // ─ Brain body (type 0=blue, 2=green): stays in place, colour oscillates ─
+                  ptx[i]=p5homeX[i]; pty[i]=p5homeY[i];
+                  pvx[i]+=(ptx[i]-px[i])*0.028;
+                  pvy[i]+=(pty[i]-py[i])*0.028;
+                  // Per-particle phase variation creates wave-like colour spread through brain
+                  var pOsc=(Math.sin(frame*0.0095+p5phase[i])+1)*0.5;
+                  if(tp===0){ s5bb.push((pOsc*0.55)|0); s5bb.push(i); }  // blue brain
+                  else      { s5gb.push((pOsc*0.55)|0); s5gb.push(i); }  // green brain
+                  pvx[i]+=Math.sin(ft*1.0+pno[i])*n*0.8;
+                  pvy[i]+=Math.cos(ft*0.75+pno[i]*1.3)*n*0.8;
                 }
-                var sz=psz[i];
-                ctx.moveTo(px[i]+sz,py[i]);
-                ctx.arc(px[i],py[i],sz,0,6.2832);
-                hasP=true;
+
+                // Cursor repulsion (all particles)
+                if(mx!==null){
+                  var s5rx=px[i]-mx, s5ry=py[i]-my;
+                  var s5r2=s5rx*s5rx+s5ry*s5ry;
+                  if(s5r2<28000&&s5r2>0.1){
+                    var s5rl=Math.sqrt(s5r2);
+                    var s5rf=(168-s5rl)/168*1.2;
+                    if(s5rf>0){pvx[i]+=s5rx/s5rl*s5rf; pvy[i]+=s5ry/s5rl*s5rf;}
+                  }
+                }
+                pvx[i]*=0.930; pvy[i]*=0.930;
+                px[i]+=pvx[i]; py[i]+=pvy[i];
               }
-              // physics pass for green family
-              if(pass===1){
+
+              // ─ RENDER: Brain bodies (one dynamic colour per frame) ─
+              // Blue brain: pure blue → blue-cyan (driven by oscB)
+              var bbr=~~(80+20*oscB), bbg=~~(140+60*oscB), bbb=~~(255-65*oscB);
+              ctx.fillStyle='rgba('+bbr+','+bbg+','+bbb+',0.90)';
+              ctx.beginPath();
+              for(var j=0;j<s5bb.length;j+=2){
+                var bi=s5bb[j+1];
+                // Per-particle sub-colour from stored bucket (j)
+                var pf=s5bb[j]/10; // 0..0.55
+                var lr=~~(80+20*pf), lg=~~(140+60*pf), lb=~~(255-65*pf);
+                // Draw with per-particle colour by issuing small batches not worth it —
+                // brain uses single frame colour for performance (oscB drives whole brain)
+                ctx.moveTo(px[bi]+psz[bi],py[bi]);
+                ctx.arc(px[bi],py[bi],psz[bi],0,6.2832);
+              }
+              ctx.fill();
+
+              // Green brain: pure green → green-cyan (driven by oscG, opposite phase)
+              var gbr=~~(80+40*oscG), gbg=~~(230-30*oscG), gbb=~~(90+115*oscG);
+              ctx.fillStyle='rgba('+gbr+','+gbg+','+gbb+',0.90)';
+              ctx.beginPath();
+              for(var j=0;j<s5gb.length;j+=2){
+                var bi=s5gb[j+1];
+                ctx.moveTo(px[bi]+psz[bi],py[bi]);
+                ctx.arc(px[bi],py[bi],psz[bi],0,6.2832);
+              }
+              ctx.fill();
+
+              // ─ RENDER: Stream (gradient buckets) ─
+              for(var b5=0;b5<S5_NBKT;b5++){
+                var bct=(b5+0.5)/S5_NBKT;
+                if(s5bs[b5].length>0){
+                  // Blue stream: blue(bct=0) → green(bct=1)
+                  ctx.fillStyle='rgba('+(~~(80+(120-80)*bct))+','+(~~(140+(240-140)*bct))+','+(~~(255+(90-255)*bct))+',0.95)';
+                  ctx.beginPath();
+                  for(var bj=0;bj<s5bs[b5].length;bj++){
+                    var bi=s5bs[b5][bj];
+                    ctx.moveTo(px[bi]+psz[bi],py[bi]);
+                    ctx.arc(px[bi],py[bi],psz[bi],0,6.2832);
+                  }
+                  ctx.fill();
+                }
+                if(s5gs[b5].length>0){
+                  // Green stream: green(bct=0) → blue(bct=1)
+                  ctx.fillStyle='rgba('+(~~(120+(80-120)*bct))+','+(~~(240+(140-240)*bct))+','+(~~(90+(255-90)*bct))+',0.95)';
+                  ctx.beginPath();
+                  for(var bj=0;bj<s5gs[b5].length;bj++){
+                    var bi=s5gs[b5][bj];
+                    ctx.moveTo(px[bi]+psz[bi],py[bi]);
+                    ctx.arc(px[bi],py[bi],psz[bi],0,6.2832);
+                  }
+                  ctx.fill();
+                }
+              }
+
+            } else {
+              // ─── STATES 0–4 (and transitions into 5): standard batch rendering ───
+              // Colour interpolation between states
+              var col0=STATE_HUE[bFrom], col1=STATE_HUE[bTo];
+              var e2=bT<0.5?2*bT*bT:1-Math.pow(-2*bT+2,2)/2;
+              var cr0=col0[0]+(col1[0]-col0[0])*e2,cg0=col0[1]+(col1[1]-col0[1])*e2,cb0=col0[2]+(col1[2]-col0[2])*e2;
+              var cr1=col0[3]+(col1[3]-col0[3])*e2,cg1=col0[4]+(col1[4]-col0[4])*e2,cb1=col0[5]+(col1[5]-col0[5])*e2;
+              var opa=col0[6]+(col1[6]-col0[6])*e2;
+
+              var pass;
+              for(pass=0;pass<2;pass++){
+                ctx.beginPath();
+                var hasP=false;
                 for(var i=0;i<N;i++){
-                  if(pbirth[i]!==1) continue;
-                  pvx[i]+=(ptx[i]-px[i])*k;
-                  pvy[i]+=(pty[i]-py[i])*k;
-                  pvx[i]+=Math.sin(ft*1.1+pno[i])*n;
-                  pvy[i]+=Math.cos(ft*0.75+pno[i]*1.4)*n;
-                  pvx[i]*=d; pvy[i]*=d;
-                  px[i]+=pvx[i]; py[i]+=pvy[i];
+                  if(pbirth[i]!==pass) continue;
+                  if(pass===0){
+                    pvx[i]+=(ptx[i]-px[i])*k;
+                    pvy[i]+=(pty[i]-py[i])*k;
+                    pvx[i]+=Math.sin(ft*1.1+pno[i])*n;
+                    pvy[i]+=Math.cos(ft*0.75+pno[i]*1.4)*n;
+                    if(mx!==null){
+                      var rdx=px[i]-mx, rdy=py[i]-my;
+                      var rd2=rdx*rdx+rdy*rdy;
+                      if(rd2<28000&&rd2>0.1){
+                        var rd=Math.sqrt(rd2);
+                        var rf2=(168-rd)/168*1.2;
+                        if(rf2>0){pvx[i]+=rdx/rd*rf2; pvy[i]+=rdy/rd*rf2;}
+                      }
+                    }
+                    pvx[i]*=d; pvy[i]*=d;
+                    px[i]+=pvx[i]; py[i]+=pvy[i];
+                  }
+                  var sz=psz[i];
+                  ctx.moveTo(px[i]+sz,py[i]);
+                  ctx.arc(px[i],py[i],sz,0,6.2832);
+                  hasP=true;
+                }
+                if(pass===1){
+                  for(var i=0;i<N;i++){
+                    if(pbirth[i]!==1) continue;
+                    pvx[i]+=(ptx[i]-px[i])*k;
+                    pvy[i]+=(pty[i]-py[i])*k;
+                    pvx[i]+=Math.sin(ft*1.1+pno[i])*n;
+                    pvy[i]+=Math.cos(ft*0.75+pno[i]*1.4)*n;
+                    if(mx!==null){
+                      var rdx=px[i]-mx, rdy=py[i]-my;
+                      var rd2=rdx*rdx+rdy*rdy;
+                      if(rd2<28000&&rd2>0.1){
+                        var rd=Math.sqrt(rd2);
+                        var rf2=(168-rd)/168*1.2;
+                        if(rf2>0){pvx[i]+=rdx/rd*rf2; pvy[i]+=rdy/rd*rf2;}
+                      }
+                    }
+                    pvx[i]*=d; pvy[i]*=d;
+                    px[i]+=pvx[i]; py[i]+=pvy[i];
+                  }
+                }
+                if(hasP){
+                  var r=pass===0?cr0:cr1, g=pass===0?cg0:cg1, b=pass===0?cb0:cb1;
+                  ctx.fillStyle='rgba('+~~r+','+~~g+','+~~b+','+opa.toFixed(2)+')';
+                  ctx.fill();
                 }
               }
-              if(hasP){
-                var r=pass===0?cr0:cr1, g=pass===0?cg0:cg1, b=pass===0?cb0:cb1;
-                ctx.fillStyle='rgba('+~~r+','+~~g+','+~~b+','+opa.toFixed(2)+')';
-                ctx.fill();
-              }
-            }
+            } // end state branch
           }
 
           // ── Resize ──
@@ -932,10 +1275,45 @@
           var vis=new IntersectionObserver(function(e){running=e[0].isIntersecting;},{threshold:0});
           vis.observe(section);
 
+          // ── Cursor repulsion ──
+          var mx=null, my=null;
+          document.addEventListener('mousemove',function(e){
+            if(!running){mx=null;return;}
+            var rect=canvas.getBoundingClientRect();
+            mx=e.clientX-rect.left;
+            my=e.clientY-rect.top;
+          },{passive:true});
+          document.addEventListener('mouseleave',function(){mx=null;my=null;});
+
+          // Patch tick to include repulsion (wrap original physics loop)
+          var _origTick=tick;
+          // repulsion applied inside tick — already coded below in physics loop
+
           window.addEventListener('scroll',function(){
             if(running) setState(getActiveState());
           },{passive:true});
           window.addEventListener('resize',function(){resize();setState(getActiveState());});
+
+          // ── Scroll progress indicator ──
+          var progressEl=document.getElementById('cv-progress');
+          var progressFill=document.getElementById('cv-progress-fill');
+          var progressYear=document.getElementById('cv-progress-year');
+          var yearLabels=['2008','2014','2018','2021','2024','2025'];
+
+          window.addEventListener('scroll',function(){
+            var rect=section.getBoundingClientRect();
+            var totalH=section.offsetHeight-window.innerHeight;
+            var scrolled=-rect.top;
+            if(scrolled<=0||scrolled>=totalH){
+              progressEl.classList.remove('visible');
+              return;
+            }
+            progressEl.classList.add('visible');
+            var pct=Math.max(0,Math.min(1,scrolled/totalH));
+            progressFill.style.height=(pct*100)+'%';
+            var idx=Math.min(NS-1,Math.floor(pct*NS));
+            progressYear.textContent=yearLabels[idx];
+          },{passive:true});
 
           resize();
           tick();
