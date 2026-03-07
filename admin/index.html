@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Admin – BRK</title>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Manrope, sans-serif;
+      font-size: 16px;
+      color: #100f10;
+      background: #fbfbfb;
+      min-height: 100vh;
+    }
+
+    /* ── Auth screen ── */
+    #auth-screen {
+      display: flex; align-items: center; justify-content: center;
+      min-height: 100vh;
+    }
+    .auth-box {
+      text-align: center;
+      max-width: 380px; width: 100%;
+      padding: 3rem 2rem;
+    }
+    .auth-box h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .auth-box p { color: #888; margin-bottom: 2rem; font-size: 0.95rem; }
+    .auth-box input {
+      width: 100%;
+      border: none; border-bottom: 2px solid #cecece;
+      background: transparent;
+      padding: 0.75rem 0;
+      font-size: 1.1rem;
+      font-family: Manrope, sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      margin-bottom: 1.5rem;
+    }
+    .auth-box input:focus { border-bottom-color: #100f10; }
+    .auth-error { color: #c34b4b; font-size: 0.9rem; margin-top: -1rem; margin-bottom: 1rem; display: none; }
+
+    /* ── Layout ── */
+    #app { display: none; }
+    .topbar {
+      position: sticky; top: 0; z-index: 10;
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .topbar-brand { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.02em; }
+    .topbar-actions { display: flex; gap: 1rem; align-items: center; }
+
+    .main { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 57px); }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      border-right: 1px solid #eee;
+      padding: 1.5rem;
+      overflow-y: auto;
+      max-height: calc(100vh - 57px);
+      position: sticky; top: 57px;
+    }
+    .sidebar-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 1rem;
+    }
+    .sidebar-header h2 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; color: #888; font-weight: 600; }
+    .post-list { list-style: none; }
+    .post-list-item {
+      padding: 0.75rem 0.75rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-bottom: 0.25rem;
+      border-left: 3px solid transparent;
+    }
+    .post-list-item:hover { background: #f5f5f5; }
+    .post-list-item.active { background: #f0f0f0; border-left-color: #100f10; }
+    .post-list-title { font-size: 0.95rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .post-list-meta { font-size: 0.78rem; color: #888; margin-top: 2px; }
+
+    /* ── Editor ── */
+    .editor-pane {
+      padding: 2rem 3rem;
+      max-width: 900px;
+    }
+    .editor-pane h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 2rem; }
+
+    .field-group { margin-bottom: 1.5rem; }
+    .field-group label {
+      display: block;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #888;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .field-group input,
+    .field-group select,
+    .field-group textarea {
+      width: 100%;
+      border: none;
+      border-bottom: 1.5px solid #cecece;
+      background: transparent;
+      padding: 0.5rem 0;
+      font-size: 1rem;
+      font-family: Manrope, sans-serif;
+      outline: none;
+      transition: border-color 0.2s;
+      color: #100f10;
+      resize: vertical;
+    }
+    .field-group input:focus,
+    .field-group select:focus,
+    .field-group textarea:focus { border-bottom-color: #100f10; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+    /* Content area — simple textarea that supports markdown */
+    #post-content {
+      border: 1.5px solid #eee !important;
+      border-radius: 6px;
+      padding: 1rem !important;
+      min-height: 340px;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    #post-content:focus { border-color: #100f10 !important; }
+
+    .toolbar {
+      display: flex; gap: 0.5rem; flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
+    .toolbar button {
+      background: #f5f5f5; border: none; border-radius: 4px;
+      padding: 4px 10px; font-size: 0.8rem; font-weight: 600;
+      cursor: pointer; font-family: Manrope, sans-serif;
+      transition: background 0.15s;
+    }
+    .toolbar button:hover { background: #e0e0e0; }
+
+    /* Slug preview */
+    .slug-preview {
+      font-size: 0.78rem; color: #888; margin-top: 4px;
+    }
+    .slug-preview span { color: #100f10; font-weight: 500; }
+
+    /* Status message */
+    .status-bar {
+      margin-top: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .status-bar.success { background: #edf7ed; color: #2d6a2d; display: block; }
+    .status-bar.error   { background: #fdecea; color: #c34b4b; display: block; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      padding: 0.6rem 1.4rem;
+      border-radius: 4px;
+      border: none; cursor: pointer;
+      font-family: Manrope, sans-serif;
+      font-size: 0.9rem; font-weight: 600;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-primary { background: #100f10; color: #fff; }
+    .btn-primary:hover { background: #2a2a2a; }
+    .btn-secondary { background: transparent; color: #100f10; border: 1px solid #cecece; }
+    .btn-secondary:hover { background: #f0f0f0; }
+    .btn-danger { background: transparent; color: #c34b4b; border: 1px solid #e09999; }
+    .btn-danger:hover { background: #fdecea; }
+
+    .bottom-actions {
+      display: flex; gap: 1rem; align-items: center;
+      padding-top: 2rem;
+      border-top: 1px solid #eee;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── AUTH ── -->
+<div id="auth-screen">
+  <div class="auth-box">
+    <h1>BRK</h1>
+    <p>Blog admin — enter password to continue</p>
+    <input type="password" id="auth-input" placeholder="Password" />
+    <div class="auth-error" id="auth-error">Incorrect password.</div>
+    <button class="btn btn-primary" style="width:100%" onclick="authenticate()">Enter</button>
+  </div>
+</div>
+
+<!-- ── APP ── -->
+<div id="app">
+  <div class="topbar">
+    <div class="topbar-brand">BRK / Blog Admin</div>
+    <div class="topbar-actions">
+      <a href="../blog.html" target="_blank" class="btn btn-secondary">View Blog ↗</a>
+      <button class="btn btn-primary" onclick="newPost()">+ New Post</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h2>Posts</h2>
+      </div>
+      <ul class="post-list" id="post-list">
+        <li style="color:#888;font-size:0.9rem;padding:0.75rem">Loading…</li>
+      </ul>
+    </aside>
+
+    <!-- Editor -->
+    <div class="editor-pane">
+      <h2 id="editor-title">New Post</h2>
+
+      <div class="two-col">
+        <div class="field-group">
+          <label>Title</label>
+          <input type="text" id="post-name" placeholder="Post title" oninput="generateSlug()" />
+        </div>
+        <div class="field-group">
+          <label>Category</label>
+          <input type="text" id="post-category" placeholder="e.g. AI, Engineering, Finance" />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label>Slug (URL)</label>
+        <input type="text" id="post-slug" placeholder="auto-generated" />
+        <div class="slug-preview">bharathkreddy.com/blog/<span id="slug-preview-text">—</span></div>
+      </div>
+
+      <div class="field-group">
+        <label>Summary (shown on listing page)</label>
+        <textarea id="post-summary" rows="2" placeholder="One or two sentences about the post…"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label>Main Image URL</label>
+        <input type="text" id="post-image" placeholder="https://… or /blog/images/…" />
+      </div>
+
+      <div class="field-group">
+        <label>Content (HTML supported)</label>
+        <div class="toolbar">
+          <button onclick="wrap('h2')">H2</button>
+          <button onclick="wrap('h3')">H3</button>
+          <button onclick="wrap('p')">¶</button>
+          <button onclick="wrap('strong')"><b>B</b></button>
+          <button onclick="wrap('em')"><i>I</i></button>
+          <button onclick="wrap('code')">Code</button>
+          <button onclick="insertLink()">Link</button>
+          <button onclick="insertHr()">───</button>
+          <button onclick="insertBlockquote()">❝</button>
+        </div>
+        <textarea id="post-content" placeholder="Write your post here. HTML is supported — wrap paragraphs in &lt;p&gt;, headings in &lt;h2&gt;/&lt;h3&gt;, etc."></textarea>
+      </div>
+
+      <div class="bottom-actions">
+        <button class="btn btn-primary" onclick="savePost()">Save &amp; Publish</button>
+        <button class="btn btn-secondary" onclick="saveDraft()">Save Draft</button>
+        <button class="btn btn-danger" id="delete-btn" onclick="deletePost()" style="display:none">Delete</button>
+      </div>
+
+      <div class="status-bar" id="status-bar"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── Simple client-side password (change this!) ──
+  const ADMIN_PASSWORD = "brk2025!";
+  let editingSlug = null;
+  let allPosts = [];
+
+  function authenticate() {
+    const val = document.getElementById("auth-input").value;
+    if (val === ADMIN_PASSWORD) {
+      document.getElementById("auth-screen").style.display = "none";
+      document.getElementById("app").style.display = "block";
+      loadPosts();
+    } else {
+      document.getElementById("auth-error").style.display = "block";
+    }
+  }
+  document.getElementById("auth-input").addEventListener("keydown", e => {
+    if (e.key === "Enter") authenticate();
+  });
+
+  // ── Load posts into sidebar ──
+  function loadPosts() {
+    fetch("../get_blog_posts.php")
+      .then(r => r.json())
+      .then(posts => {
+        allPosts = posts || [];
+        const list = document.getElementById("post-list");
+        if (!allPosts.length) {
+          list.innerHTML = '<li style="color:#888;font-size:0.9rem;padding:0.75rem">No posts yet.</li>';
+          return;
+        }
+        list.innerHTML = allPosts.map(p => `
+          <li class="post-list-item" onclick="loadPost('${p.slug}')">
+            <div class="post-list-title">${p.name}</div>
+            <div class="post-list-meta">${p.category || ''} · ${p.published_on ? p.published_on.slice(0,10) : ''}</div>
+          </li>
+        `).join("");
+      })
+      .catch(() => {});
+  }
+
+  // ── Load a post into the editor ──
+  function loadPost(slug) {
+    fetch(`../get_single_post.php?slug=${slug}`)
+      .then(r => r.json())
+      .then(p => {
+        if (p.error) return;
+        editingSlug = p.slug;
+        document.getElementById("editor-title").textContent = "Editing Post";
+        document.getElementById("post-name").value = p.name || "";
+        document.getElementById("post-slug").value = p.slug || "";
+        document.getElementById("slug-preview-text").textContent = p.slug || "—";
+        document.getElementById("post-category").value = p.category || "";
+        document.getElementById("post-summary").value = p.summary || "";
+        document.getElementById("post-image").value = p.main_image || "";
+        document.getElementById("post-content").value = p.content || "";
+        document.getElementById("delete-btn").style.display = "inline-flex";
+        clearStatus();
+
+        // Highlight in sidebar
+        document.querySelectorAll(".post-list-item").forEach(el => el.classList.remove("active"));
+        document.querySelectorAll(".post-list-item").forEach(el => {
+          if (el.querySelector(".post-list-title")?.textContent === p.name) el.classList.add("active");
+        });
+      });
+  }
+
+  // ── New post ──
+  function newPost() {
+    editingSlug = null;
+    document.getElementById("editor-title").textContent = "New Post";
+    document.getElementById("post-name").value = "";
+    document.getElementById("post-slug").value = "";
+    document.getElementById("slug-preview-text").textContent = "—";
+    document.getElementById("post-category").value = "";
+    document.getElementById("post-summary").value = "";
+    document.getElementById("post-image").value = "";
+    document.getElementById("post-content").value = "";
+    document.getElementById("delete-btn").style.display = "none";
+    clearStatus();
+    document.querySelectorAll(".post-list-item").forEach(el => el.classList.remove("active"));
+  }
+
+  // ── Auto-generate slug ──
+  function generateSlug() {
+    const name = document.getElementById("post-name").value;
+    if (!document.getElementById("post-slug").value || !editingSlug) {
+      const slug = name.toLowerCase().trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+      document.getElementById("post-slug").value = slug;
+      document.getElementById("slug-preview-text").textContent = slug || "—";
+    }
+  }
+  document.getElementById("post-slug").addEventListener("input", () => {
+    document.getElementById("slug-preview-text").textContent = document.getElementById("post-slug").value || "—";
+  });
+
+  // ── Save / Publish ──
+  function savePost() { submitPost(true); }
+  function saveDraft()  { submitPost(false); }
+
+  function submitPost(publish) {
+    const data = {
+      name:       document.getElementById("post-name").value.trim(),
+      slug:       document.getElementById("post-slug").value.trim(),
+      category:   document.getElementById("post-category").value.trim(),
+      summary:    document.getElementById("post-summary").value.trim(),
+      main_image: document.getElementById("post-image").value.trim(),
+      content:    document.getElementById("post-content").value,
+      published:  publish ? 1 : 0,
+      editing_slug: editingSlug || null,
+    };
+
+    if (!data.name || !data.slug) {
+      showStatus("Title and slug are required.", "error");
+      return;
+    }
+
+    fetch("save_post.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+    .then(r => r.json())
+    .then(res => {
+      if (res.error) {
+        showStatus("Error: " + res.error, "error");
+      } else {
+        editingSlug = data.slug;
+        showStatus(publish ? "Published successfully!" : "Draft saved.", "success");
+        loadPosts();
+      }
+    })
+    .catch(() => showStatus("Network error — check save_post.php is deployed.", "error"));
+  }
+
+  // ── Delete post ──
+  function deletePost() {
+    if (!editingSlug) return;
+    if (!confirm("Delete this post? This cannot be undone.")) return;
+    fetch("save_post.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "delete", slug: editingSlug }),
+    })
+    .then(r => r.json())
+    .then(res => {
+      if (res.error) { showStatus("Error: " + res.error, "error"); return; }
+      newPost();
+      loadPosts();
+    });
+  }
+
+  // ── Toolbar helpers ──
+  function wrap(tag) {
+    const ta = document.getElementById("post-content");
+    const start = ta.selectionStart, end = ta.selectionEnd;
+    const selected = ta.value.slice(start, end) || "text";
+    const replacement = `<${tag}>${selected}</${tag}>`;
+    ta.value = ta.value.slice(0, start) + replacement + ta.value.slice(end);
+    ta.focus();
+  }
+  function insertLink() {
+    const url = prompt("URL:") || "#";
+    const ta = document.getElementById("post-content");
+    const start = ta.selectionStart, end = ta.selectionEnd;
+    const text = ta.value.slice(start, end) || "link text";
+    ta.value = ta.value.slice(0, start) + `<a href="${url}" target="_blank">${text}</a>` + ta.value.slice(end);
+  }
+  function insertHr() {
+    const ta = document.getElementById("post-content");
+    const pos = ta.selectionStart;
+    ta.value = ta.value.slice(0, pos) + "\n<hr/>\n" + ta.value.slice(pos);
+  }
+  function insertBlockquote() {
+    const ta = document.getElementById("post-content");
+    const start = ta.selectionStart, end = ta.selectionEnd;
+    const selected = ta.value.slice(start, end) || "quote";
+    ta.value = ta.value.slice(0, start) + `<blockquote>${selected}</blockquote>` + ta.value.slice(end);
+  }
+
+  function showStatus(msg, type) {
+    const bar = document.getElementById("status-bar");
+    bar.textContent = msg;
+    bar.className = "status-bar " + type;
+  }
+  function clearStatus() {
+    const bar = document.getElementById("status-bar");
+    bar.className = "status-bar";
+    bar.textContent = "";
+  }
+</script>
+</body>
+</html>
