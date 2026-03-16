@@ -285,7 +285,7 @@ figcaption {
 
 .hero-image-white-text {
   z-index: 2;
-  background-color: #100f10;
+  background-color: #0c0c10;
   width: 1vw;
   position: absolute;
   inset: 0%;
@@ -882,7 +882,7 @@ figcaption {
 
 .hero-black-gradient {
   z-index: -1;
-  background-image: linear-gradient(to top, #000, #0000);
+  background-image: linear-gradient(to top, #0c0c10, transparent 60%);
   height: 50vh;
   position: absolute;
   inset: auto 0% 0%;
