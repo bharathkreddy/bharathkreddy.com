@@ -1,73 +1,104 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+require_once __DIR__ . '/auth_check.php';
+
+header("Access-Control-Allow-Origin: https://bharathkreddy.com");
 header("Content-Type: application/json; charset=UTF-8");
 
-$servername = "localhost";
-$username   = "u519573295_brk";
-$password   = "Summer@21!";
-$dbname     = "u519573295_brk";
+require_once __DIR__ . '/../db.php';
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
-}
-
-$raw  = file_get_contents("php://input");
+$raw = file_get_contents("php://input");
 $data = json_decode($raw, true);
 if (!$data) {
-    die(json_encode(["error" => "Invalid JSON"]));
+    http_response_code(400);
+    echo json_encode(["error" => "Invalid JSON"]);
+    exit;
 }
 
 // ── Delete ──
 if (isset($data["action"]) && $data["action"] === "delete") {
-    $slug = $conn->real_escape_string($data["slug"]);
-    $conn->query("DELETE FROM blog_posts WHERE slug='$slug'");
-    echo json_encode(["ok" => true]);
-    $conn->close();
+    if (!isset($data["slug"]) || trim($data["slug"]) === '') {
+        http_response_code(400);
+        echo json_encode(["error" => "Slug required for deletion"]);
+        exit;
+    }
+    try {
+        $stmt = $pdo->prepare("DELETE FROM blog_posts WHERE slug = :slug");
+        $stmt->execute(['slug' => trim($data["slug"])]);
+        echo json_encode(["ok" => true]);
+    } catch (PDOException $e) {
+        error_log('save_post delete failed: ' . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(["error" => "Failed to delete post"]);
+    }
     exit;
 }
 
-// ── Upsert (insert or update) ──
-$name        = $conn->real_escape_string($data["name"]       ?? "");
-$slug        = $conn->real_escape_string($data["slug"]       ?? "");
-$category    = $conn->real_escape_string($data["category"]   ?? "");
-$summary     = $conn->real_escape_string($data["summary"]    ?? "");
-$main_image  = $conn->real_escape_string($data["main_image"] ?? "");
-$content     = $conn->real_escape_string($data["content"]    ?? "");
-$published   = intval($data["published"] ?? 0);
-$editing_slug = isset($data["editing_slug"]) ? $conn->real_escape_string($data["editing_slug"]) : null;
+// ── Validate required fields ──
+$name       = trim($data["name"] ?? "");
+$slug       = trim($data["slug"] ?? "");
+$category   = trim($data["category"] ?? "");
+$summary    = trim($data["summary"] ?? "");
+$main_image = trim($data["main_image"] ?? "");
+$content    = $data["content"] ?? "";
+$published  = intval($data["published"] ?? 0);
+$editing_slug = isset($data["editing_slug"]) ? trim($data["editing_slug"]) : null;
 
-if (!$name || !$slug) {
-    die(json_encode(["error" => "Name and slug are required"]));
+if ($name === '' || $slug === '') {
+    http_response_code(400);
+    echo json_encode(["error" => "Name and slug are required"]);
+    exit;
 }
 
-if ($editing_slug) {
-    // Update existing post
-    $now = $published ? ", published_on=NOW()" : "";
-    $sql = "UPDATE blog_posts SET
-        name='$name',
-        slug='$slug',
-        category='$category',
-        summary='$summary',
-        main_image='$main_image',
-        content='$content',
-        published=$published
-        $now
-        WHERE slug='$editing_slug'";
-} else {
-    // Insert new post
-    $published_on = $published ? "NOW()" : "NULL";
-    $sql = "INSERT INTO blog_posts
-        (name, slug, category, summary, main_image, content, published, published_on)
-        VALUES
-        ('$name','$slug','$category','$summary','$main_image','$content',$published,$published_on)";
+if (mb_strlen($name) > 255 || mb_strlen($slug) > 255 || mb_strlen($category) > 100 || mb_strlen($summary) > 1000 || mb_strlen($main_image) > 500) {
+    http_response_code(400);
+    echo json_encode(["error" => "One or more fields exceed maximum length"]);
+    exit;
 }
 
-if ($conn->query($sql)) {
+try {
+    if ($editing_slug) {
+        $sql = "UPDATE blog_posts SET
+            name = :name,
+            slug = :slug,
+            category = :category,
+            summary = :summary,
+            main_image = :main_image,
+            content = :content,
+            published = :published"
+            . ($published ? ", published_on = NOW()" : "") .
+            " WHERE slug = :editing_slug";
+        $stmt = $pdo->prepare($sql);
+        $params = [
+            'name' => $name,
+            'slug' => $slug,
+            'category' => $category,
+            'summary' => $summary,
+            'main_image' => $main_image,
+            'content' => $content,
+            'published' => $published,
+            'editing_slug' => $editing_slug,
+        ];
+    } else {
+        $sql = "INSERT INTO blog_posts
+            (name, slug, category, summary, main_image, content, published, published_on)
+            VALUES
+            (:name, :slug, :category, :summary, :main_image, :content, :published, " . ($published ? "NOW()" : "NULL") . ")";
+        $stmt = $pdo->prepare($sql);
+        $params = [
+            'name' => $name,
+            'slug' => $slug,
+            'category' => $category,
+            'summary' => $summary,
+            'main_image' => $main_image,
+            'content' => $content,
+            'published' => $published,
+        ];
+    }
+
+    $stmt->execute($params);
     echo json_encode(["ok" => true, "slug" => $slug]);
-} else {
-    echo json_encode(["error" => $conn->error]);
+} catch (PDOException $e) {
+    error_log('save_post upsert failed: ' . $e->getMessage());
+    http_response_code(500);
+    echo json_encode(["error" => "Failed to save post"]);
 }
-
-$conn->close();
-?>

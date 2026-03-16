@@ -282,20 +282,29 @@
 </div>
 
 <script>
-  // ── Simple client-side password (change this!) ──
-  const ADMIN_PASSWORD = "brk2025!";
   let editingSlug = null;
   let allPosts = [];
 
   function authenticate() {
     const val = document.getElementById("auth-input").value;
-    if (val === ADMIN_PASSWORD) {
-      document.getElementById("auth-screen").style.display = "none";
-      document.getElementById("app").style.display = "block";
-      loadPosts();
-    } else {
+    fetch("auth.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+      body: JSON.stringify({ password: val }),
+    })
+    .then(r => {
+      if (r.ok) {
+        document.getElementById("auth-screen").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        loadPosts();
+      } else {
+        document.getElementById("auth-error").style.display = "block";
+      }
+    })
+    .catch(() => {
       document.getElementById("auth-error").style.display = "block";
-    }
+    });
   }
   document.getElementById("auth-input").addEventListener("keydown", e => {
     if (e.key === "Enter") authenticate();
@@ -303,7 +312,7 @@
 
   // ── Load posts into sidebar ──
   function loadPosts() {
-    fetch("../get_blog_posts.php")
+    fetch("../get_blog_posts.php", { credentials: "same-origin" })
       .then(r => r.json())
       .then(posts => {
         allPosts = posts || [];
@@ -324,7 +333,7 @@
 
   // ── Load a post into the editor ──
   function loadPost(slug) {
-    fetch(`../get_single_post.php?slug=${slug}`)
+    fetch(`../get_single_post.php?slug=${slug}`, { credentials: "same-origin" })
       .then(r => r.json())
       .then(p => {
         if (p.error) return;
@@ -404,9 +413,13 @@
     fetch("save_post.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
       body: JSON.stringify(data),
     })
-    .then(r => r.json())
+    .then(r => {
+      if (r.status === 401) { location.reload(); return Promise.reject('unauthorized'); }
+      return r.json();
+    })
     .then(res => {
       if (res.error) {
         showStatus("Error: " + res.error, "error");
@@ -416,7 +429,7 @@
         loadPosts();
       }
     })
-    .catch(() => showStatus("Network error — check save_post.php is deployed.", "error"));
+    .catch(e => { if (e !== 'unauthorized') showStatus("Network error — check save_post.php is deployed.", "error"); });
   }
 
   // ── Delete post ──
@@ -426,9 +439,13 @@
     fetch("save_post.php", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
       body: JSON.stringify({ action: "delete", slug: editingSlug }),
     })
-    .then(r => r.json())
+    .then(r => {
+      if (r.status === 401) { location.reload(); return Promise.reject('unauthorized'); }
+      return r.json();
+    })
     .then(res => {
       if (res.error) { showStatus("Error: " + res.error, "error"); return; }
       newPost();

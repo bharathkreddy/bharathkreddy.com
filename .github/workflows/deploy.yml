@@ -19,7 +19,8 @@ jobs:
           echo "DB_SERVERNAME=\"${{ secrets.DB_SERVERNAME }}\"" >> .env
           echo "DB_USERNAME=\"${{ secrets.DB_USERNAME }}\"" >> .env
           echo "DB_PASSWORD=\"${{ secrets.DB_PASSWORD }}\"" >> .env
-          echo "DB_DATABSE=\"${{ secrets.DB_DATABSE }}\"" >> .env
+          echo "DB_DATABASE=\"${{ secrets.DB_DATABSE }}\"" >> .env
+          echo "ADMIN_PASSWORD_HASH=\"${{ secrets.ADMIN_PASSWORD_HASH }}\"" >> .env
 
       - name: 🔐 Generate send_email.php with SMTP secrets
         run: |

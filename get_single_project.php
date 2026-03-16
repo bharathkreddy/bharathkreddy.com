@@ -1,33 +1,30 @@
 <?php
-header("Content-Type: application/json");
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: https://bharathkreddy.com");
+header("Content-Type: application/json; charset=UTF-8");
 
-$slug = $_GET['slug'];
+require_once __DIR__ . '/db.php';
 
-
-$servername = "localhost";
-$username = "u519573295_brk";
-$password = "Summer@21!";
-$dbname = "u519573295_brk";
-
-$mysqli = new mysqli($servername, $username, $password, $dbname);
-
-if ($mysqli->connect_error) {
-    echo json_encode(['error' => 'Database connection error']);
+if (!isset($_GET['slug']) || trim($_GET['slug']) === '') {
+    http_response_code(400);
+    echo json_encode(['error' => 'Slug parameter is required']);
     exit;
 }
 
-$stmt = $mysqli->prepare("SELECT * FROM projects WHERE slug = ?");
-$stmt->bind_param("s", $slug);
-$stmt->execute();
-$result = $stmt->get_result();
+$slug = trim($_GET['slug']);
 
-if ($project = $result->fetch_assoc()) {
-    echo json_encode($project);
-} else {
-    echo json_encode(['error' => 'Project not found']);
+try {
+    $stmt = $pdo->prepare("SELECT * FROM projects WHERE slug = :slug");
+    $stmt->execute(['slug' => $slug]);
+    $project = $stmt->fetch();
+
+    if ($project) {
+        echo json_encode($project);
+    } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Project not found']);
+    }
+} catch (PDOException $e) {
+    error_log('get_single_project query failed: ' . $e->getMessage());
+    http_response_code(500);
+    echo json_encode(['error' => 'Failed to fetch project']);
 }
-
-$stmt->close();
-$mysqli->close();
-?>

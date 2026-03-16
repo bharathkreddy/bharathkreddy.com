@@ -7,9 +7,18 @@ require 'PHPMailer/SMTP.php';
 require 'PHPMailer/Exception.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['Email'];
-    $project = $_POST['ProjectName'];
-    $message = $_POST['Message'];
+    $email   = $_POST['Email'] ?? '';
+    $project = $_POST['ProjectName'] ?? '';
+    $message = $_POST['Message'] ?? '';
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Invalid email address.";
+        exit;
+    }
+
+    $emailSafe   = htmlspecialchars($email, ENT_QUOTES, 'UTF-8');
+    $projectSafe = htmlspecialchars($project, ENT_QUOTES, 'UTF-8');
+    $messageSafe = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
     $mail = new PHPMailer(true);
 
@@ -31,16 +40,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->isHTML(true);
         $mail->Subject = 'New Contact Form Submission';
         $mail->Body    = "
-            <strong>Email:</strong> $email<br>
-            <strong>Interest:</strong> $project<br>
+            <strong>Email:</strong> $emailSafe<br>
+            <strong>Interest:</strong> $projectSafe<br>
             <strong>Message:</strong><br>
-            <pre style='font-family: monospace;'>$message</pre>
+            <pre style='font-family: monospace;'>$messageSafe</pre>
         ";
 
         $mail->send();
         echo "success";
     } catch (Exception $e) {
-        echo "Message could not be sent. Error: {$mail->ErrorInfo}";
+        error_log('Email send failed: ' . $mail->ErrorInfo);
+        echo "Message could not be sent.";
     }
 }
 ?>

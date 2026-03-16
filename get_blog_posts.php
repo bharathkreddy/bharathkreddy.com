@@ -1,34 +1,14 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: https://bharathkreddy.com");
 header("Content-Type: application/json; charset=UTF-8");
 
-$servername = "localhost";
-$username = "u519573295_brk";
-$password = "Summer@21!";
-$dbname = "u519573295_brk";
+require_once __DIR__ . '/db.php';
 
-
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-  die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
+try {
+    $stmt = $pdo->query("SELECT name, slug, category, summary, main_image, published_on FROM blog_posts ORDER BY published_on DESC");
+    echo json_encode($stmt->fetchAll());
+} catch (PDOException $e) {
+    error_log('get_blog_posts query failed: ' . $e->getMessage());
+    http_response_code(500);
+    echo json_encode(['error' => 'Failed to fetch posts']);
 }
-
-$sql = "SELECT name, slug, category, summary, main_image, published_on FROM blog_posts ORDER BY published_on DESC";
-$result = $conn->query($sql);
-
-if (!$result) {
-  die(json_encode(["error" => "Query failed: " . $conn->error]));
-}
-
-$posts = [];
-while ($row = $result->fetch_assoc()) {
-  $posts[] = $row;
-}
-
-echo json_encode($posts);
-
-$conn->close();
-?>
-

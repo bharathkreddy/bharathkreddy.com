@@ -1,32 +1,30 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: https://bharathkreddy.com");
 header("Content-Type: application/json; charset=UTF-8");
 
-$slug = $_GET['slug'];
+require_once __DIR__ . '/db.php';
 
-$servername = "localhost";
-$username = "u519573295_brk";
-$password = "Summer@21!";
-$dbname = "u519573295_brk";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-
-if ($conn->connect_error) {
-  die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
+if (!isset($_GET['slug']) || trim($_GET['slug']) === '') {
+    http_response_code(400);
+    echo json_encode(['error' => 'Slug parameter is required']);
+    exit;
 }
 
-$stmt = $conn->prepare("SELECT * FROM blog_posts WHERE slug=?");
-$stmt->bind_param("s", $slug);
-$stmt->execute();
-$result = $stmt->get_result();
+$slug = trim($_GET['slug']);
 
-if ($post = $result->fetch_assoc()) {
-    echo json_encode($post);
-} else {
-    echo json_encode(["error" => "Post not found"]);
+try {
+    $stmt = $pdo->prepare("SELECT * FROM blog_posts WHERE slug = :slug");
+    $stmt->execute(['slug' => $slug]);
+    $post = $stmt->fetch();
+
+    if ($post) {
+        echo json_encode($post);
+    } else {
+        http_response_code(404);
+        echo json_encode(['error' => 'Post not found']);
+    }
+} catch (PDOException $e) {
+    error_log('get_single_post query failed: ' . $e->getMessage());
+    http_response_code(500);
+    echo json_encode(['error' => 'Failed to fetch post']);
 }
-
-$conn->close();
-?>
-
