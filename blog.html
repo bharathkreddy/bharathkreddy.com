@@ -5,7 +5,7 @@
 >
   <head>
     <meta charset="utf-8" />
-    <title>BRK</title>
+    <title>BRK | Thoughts</title>
     <meta content="BRK" name="description" />
     <meta content="BRK" property="og:title" />
     <meta content="BRK" property="og:description" />
@@ -62,6 +62,75 @@
     />
     <meta name="apple-mobile-web-app-title" content="brk" />
     <link rel="manifest" href="/images/site.webmanifest" />
+
+    <style>
+      .listing-section { padding: 2vw 0 4vw; }
+      .listing-entry {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 3rem 0;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        align-items: start;
+      }
+      .listing-label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding-top: 0.4rem;
+      }
+      .listing-meta {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.3);
+        line-height: 1.5;
+      }
+      .listing-date {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.18);
+      }
+      .listing-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .listing-title {
+        font-family: Manrope, sans-serif;
+        font-size: clamp(22px, 2.4vw, 36px);
+        font-weight: 400;
+        line-height: 1.3;
+        color: #0a0a0a;
+        margin: 0 0 0.5rem;
+        transition: transform 0.3s ease;
+      }
+      .listing-link:hover .listing-title {
+        transform: translateX(8px);
+      }
+      .listing-summary {
+        font-family: Manrope, sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(0,0,0,0.5);
+        margin: 0;
+        max-width: 640px;
+      }
+      @media screen and (max-width: 767px) {
+        .listing-entry {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+          padding: 2rem 0;
+        }
+        .listing-label { flex-direction: row; gap: 1rem; padding-top: 0; }
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
@@ -119,7 +188,7 @@
               "
               class="perspective-load1"
             >
-              <h1 class="hero-text left-align">Blog</h1>
+              <h1 class="hero-text left-align">Thoughts</h1>
             </div>
           </div>
           <div class="perspective">
@@ -138,136 +207,14 @@
               "
               class="perspective-load2"
             >
-              <h1 class="hero-text left-align">Posts</h1>
+              <h1 class="hero-text left-align">&amp; Journal</h1>
             </div>
-          </div>
-          <div class="perspective">
-            <div
-              style="
-                -webkit-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -moz-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -ms-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform-style: preserve-3d;
-                opacity: 0;
-              "
-              class="perspective-load4"
-            >
-              <h4 class="no-margin-bottom">Insights</h4>
-            </div>
-          </div>
-          <div class="perspective">
-            <div
-              style="
-                -webkit-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -moz-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -ms-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform-style: preserve-3d;
-                opacity: 0;
-              "
-              class="perspective-load5"
-            >
-              <h4 class="no-margin">Thoughts &amp; Journal</h4>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="section">
-        <div class="w-dyn-list">
-          <div
-            id="blog-posts-container"
-            role="list"
-            class="blog-post-grid _3-cols w-dyn-items"
-          ></div>
-          <div class="w-dyn-empty">
-            <div>No items found.</div>
           </div>
         </div>
       </div>
 
-      <div class="section">
-        <div class="container line-container">
-          <div
-            data-w-id="a124c215-79a0-795d-e58f-e5a84a6c315d"
-            style="opacity: 0"
-            class="horizontal-line"
-          ></div>
-        </div>
-        <div
-          data-w-id="a124c215-79a0-795d-e58f-e5a84a6c315e"
-          style="opacity: 0"
-          class="infinite-carousel-container"
-        >
-          <div
-            style="
-              -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1)
-                rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-              -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-            "
-            class="infinite-carousel _1"
-          >
-            <div class="infinite-text-holder">
-              <h2 class="infinite-text">BLOG POSTS</h2>
-              <h2 class="infinite-text">FROM</h2>
-              <h2 class="infinite-text">THE PAST</h2>
-            </div>
-          </div>
-          <div
-            style="
-              -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1)
-                rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-              -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-            "
-            class="infinite-carousel _2"
-          >
-            <div class="infinite-text-holder">
-              <h2 class="infinite-text">BLOG POSTS</h2>
-              <h2 class="infinite-text">FROM</h2>
-              <h2 class="infinite-text">THE PAST</h2>
-            </div>
-          </div>
-        </div>
-        <div class="container line-container">
-          <div
-            data-w-id="a124c215-79a0-795d-e58f-e5a84a6c3164"
-            style="opacity: 0"
-            class="horizontal-line"
-          ></div>
-        </div>
-      </div>
-
-      <div class="section">
-        <div class="container">
-          <div class="w-dyn-list">
-            <div
-              id="blog-posts-container-secondary"
-              role="list"
-              class="blog-post-grid w-dyn-items"
-            ></div>
-            <div class="w-dyn-empty">
-              <div>No items found.</div>
-            </div>
-          </div>
-        </div>
+      <div class="listing-section">
+        <div class="container" id="posts-listing"></div>
       </div>
 
       <div class="footer">
@@ -331,58 +278,34 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         fetch("/get_blog_posts.php")
-          .then((response) => response.json())
+          .then((r) => r.json())
           .then((posts) => {
-            const container = document.getElementById("blog-posts-container");
-            const secondaryContainer = document.getElementById(
-              "blog-posts-container-secondary"
-            );
-
-            if (posts.length === 0) {
-              document
-                .querySelectorAll(".w-dyn-empty")
-                .forEach((el) => (el.style.display = "block"));
+            const listing = document.getElementById("posts-listing");
+            if (!posts.length) {
+              listing.innerHTML = '<p style="color:rgba(0,0,0,0.4)">No posts yet.</p>';
               return;
-            } else {
-              document
-                .querySelectorAll(".w-dyn-empty")
-                .forEach((el) => (el.style.display = "none"));
             }
-
-            container.innerHTML = "";
-            secondaryContainer.innerHTML = "";
-
-            posts.forEach((post, index) => {
-              const postHTML = `
-                <div role="listitem" class="post-collection-item w-dyn-item">
-                  <a href="detail_post.html?slug=${
-                    post.slug
-                  }" class="post-item center-align w-inline-block">
-                    <h3 class="post-item-title">${post.name}</h3>
-                    <div class="post-item-image-container">
-                      <img src="${post.main_image}" alt="${
-                post.name
-              }" class="post-item-image" />
-                    </div>
-                    <div class="post-item-content-bottom">
-                      <h4 class="post-item-category">${post.category}</h4>
-                      <h5 class="post-item-date">${new Date(
-                        post.published_on
-                      ).toLocaleDateString()}</h5>
-                    </div>
+            listing.innerHTML = posts
+              .map((p) => {
+                const d = p.published_on ? new Date(p.published_on) : null;
+                const dateStr = d
+                  ? d.toLocaleDateString("en-US", { month: "short", year: "numeric" }).toUpperCase()
+                  : "";
+                return `
+                <div class="listing-entry">
+                  <div class="listing-label">
+                    <span class="listing-meta">${p.category || ""}</span>
+                    <span class="listing-date">${dateStr}</span>
+                  </div>
+                  <a href="detail_post.html?slug=${p.slug}" class="listing-link">
+                    <h2 class="listing-title">${p.name}</h2>
+                    ${p.summary ? `<p class="listing-summary">${p.summary}</p>` : ""}
                   </a>
-                </div>
-              `;
-
-              if (index < 3) {
-                container.innerHTML += postHTML;
-              } else {
-                secondaryContainer.innerHTML += postHTML;
-              }
-            });
-
+                </div>`;
+              })
+              .join("");
           })
-          .catch((err) => console.error("Error fetching blog posts:", err));
+          .catch((err) => console.error("Error fetching posts:", err));
       });
     </script>
   </body>

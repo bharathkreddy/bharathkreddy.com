@@ -5,7 +5,7 @@
 >
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>BRK</title>
     <meta content="" name="description" />
     <meta content="" property="og:title" />
     <meta content="" property="og:description" />
@@ -63,10 +63,120 @@
     />
     <meta name="apple-mobile-web-app-title" content="brk" />
     <link rel="manifest" href="/images/site.webmanifest" />
+
+    <style>
+      .detail-hero { padding: 2vw 0 0; }
+      .detail-title {
+        font-family: Manrope, sans-serif;
+        font-size: clamp(32px, 4vw, 64px);
+        font-weight: 400;
+        line-height: 1.1;
+        color: #0a0a0a;
+        margin: 0 0 2.5rem;
+      }
+      .detail-image {
+        width: 100%;
+        display: block;
+        margin-bottom: 3rem;
+      }
+      .detail-meta-grid {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(0,0,0,0.08);
+      }
+      .detail-meta-label {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.3);
+        padding-top: 0.2rem;
+      }
+      .detail-meta-value {
+        font-family: Manrope, sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(0,0,0,0.65);
+        margin: 0;
+      }
+      .detail-divider {
+        border: none;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        margin: 3rem 0;
+      }
+      .detail-body {
+        font-family: Manrope, sans-serif;
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(0,0,0,0.7);
+        max-width: 780px;
+      }
+      .detail-body h2, .detail-body h3 { font-weight: 500; color: #0a0a0a; margin-top: 2rem; }
+      .detail-body img { max-width: 100%; margin: 2rem 0; }
+      .detail-body a { color: #0a0a0a; text-decoration: underline; text-underline-offset: 3px; }
+
+      /* Other projects listing */
+      .other-section { padding: 4vw 0 2vw; }
+      .other-heading {
+        font-family: Manrope, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.18);
+        margin: 0 0 1rem;
+      }
+      .other-entry {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 2rem 0;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        align-items: center;
+      }
+      .other-num {
+        font-family: Manrope, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: rgba(0,0,0,0.18);
+      }
+      .other-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .other-title {
+        font-family: Manrope, sans-serif;
+        font-size: clamp(18px, 1.8vw, 28px);
+        font-weight: 400;
+        color: #0a0a0a;
+        margin: 0;
+        transition: transform 0.3s ease;
+      }
+      .other-link:hover .other-title { transform: translateX(8px); }
+      .other-service {
+        font-family: Manrope, sans-serif;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.3);
+        margin-top: 0.2rem;
+      }
+      @media screen and (max-width: 767px) {
+        .detail-meta-grid { grid-template-columns: 1fr; gap: 0.3rem; }
+        .other-entry { grid-template-columns: 1fr; gap: 0.3rem; }
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
-      <!-- Navigation Section  -->
       <div
         data-collapse="small"
         data-animation="default"
@@ -99,131 +209,18 @@
         </div>
         <div class="nav-bg-white"></div>
       </div>
-      <div class="section hero">
-        <div class="container main-hero-container">
-          <div class="w-layout-grid grid-6-columns">
-            <div
-              id="w-node-e79b083e-68d5-d611-4424-abc638715cd3-46362f93"
-              class="perspective"
-            >
-              <div class="fade-in-slow-on-view">
-                <h1 class="project-details-title" id="project-name"></h1>
-              </div>
-            </div>
-            <div
-              id="w-node-aae53570-7e69-8a23-0788-b85bf3399c63-46362f93"
-              class="content"
-            >
-              <h5
-                data-w-id="357a0da3-1162-24f2-50df-28f47be6454d"
-                style="opacity: 1"
-                id="project-summary"
-              ></h5>
-            </div>
-          </div>
-          <div class="horizontal-line-container">
-            <div
-              data-w-id="ab792d4d-7635-cb6a-5b53-5345abaa3861"
-              style="opacity: 1"
-              class="horizontal-line"
-            ></div>
-          </div>
-          <div class="w-layout-grid grid-6-columns">
-            <img
-              data-w-id="1e054c5c-9ab7-2189-2bff-5f0632cf9287"
-              loading="lazy"
-              style="opacity: 1"
-              src=""
-              alt=""
-              id="project-image"
-              class="project-details-image main-project-image"
-            />
-            <div
-              id="w-node-e739f9d7-34e9-2a32-c143-5cc6e11e3664-46362f93"
-              class="content"
-            >
-              <div class="project-details-item">
-                <h6 class="no-margin-bottom">Client</h6>
-                <h5 class="no-margin-top" id="project-client"></h5>
-              </div>
-              <div class="project-details-item">
-                <h6 class="no-margin-bottom">Year</h6>
-                <h5 class="no-margin-top" id="project-year"></h5>
-              </div>
-              <div class="project-details-item last">
-                <h6 class="no-margin-bottom">Service</h6>
-                <h5 class="project-service" id="project-service"></h5>
-              </div>
-            </div>
-          </div>
-        </div>
+
+      <div class="detail-hero">
+        <div class="container" id="project-detail"></div>
       </div>
-      <div class="section">
+
+      <div class="other-section">
         <div class="container">
-          <div
-            data-w-id="6cbb0718-0bf1-1f76-0b13-292e885b41c5"
-            style="opacity: 1"
-            class="content-details w-richtext"
-            id="project-details"
-          ></div>
-          <div class="post-item-list-container">
-            <div class="w-dyn-list">
-              <div role="list" class="w-dyn-items">
-                <div role="listitem" class="project-image-grid-item w-dyn-item">
-                  <img loading="lazy" alt="" src="" />
-                </div>
-              </div>
-              <!-- <div class="w-dyn-empty">
-                <div>No items found.</div>
-              </div> -->
-            </div>
-          </div>
+          <p class="other-heading">Other Projects</p>
+          <div id="other-projects"></div>
         </div>
       </div>
-      <div class="section">
-        <div class="container no-max-width">
-          <div class="heading-container">
-            <div class="perspective">
-              <div class="perspective-load1-on-view">
-                <h2>Other Projects</h2>
-              </div>
-            </div>
-          </div>
-          <div class="w-dyn-list">
-            <div
-              role="list"
-              class="project-collection-list w-dyn-items"
-              id="other-projects-container"
-            >
-              <div role="listitem" class="project-collection-item w-dyn-item">
-                <a href="#" class="project-item w-inline-block">
-                  <div class="project-item-image-holder">
-                    <img alt="" src="" class="project-item-image" />
-                    <div class="project-item-image-overlay"></div>
-                  </div>
-                  <div class="project-item-content">
-                    <div class="perspective">
-                      <div class="perspective-load1-on-view">
-                        <h3 class="project-item-title"></h3>
-                      </div>
-                    </div>
-                    <div class="project-item-arrow-holder">
-                      <img
-                        src="images/Link-Arrow.svg"
-                        alt=""
-                        class="project-item-arrow"
-                      />
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-            <!-- <div class="w-dyn-empty">
-              <div>No items found.</div>
-            </div> -->
-          </div>
-        </div>
-      </div>
+
       <div class="footer">
         <div class="container w-container">
           <div class="footer-title-container">
@@ -287,59 +284,52 @@
         const slug = new URLSearchParams(window.location.search).get("slug");
 
         fetch(`/get_single_project.php?slug=${slug}`)
-          .then((response) => response.json())
-          .then((project) => {
-            if (project.error) {
-              alert("Project not found!");
+          .then((r) => r.json())
+          .then((p) => {
+            const el = document.getElementById("project-detail");
+            if (p.error) {
+              el.innerHTML = "<p>Project not found.</p>";
               return;
             }
+            document.title = p.name + " — BRK";
 
-            document.getElementById("project-name").innerText = project.name;
-            document.getElementById("project-summary").innerText =
-              project.project_summary;
-            document.getElementById("project-image").src =
-              project.main_project_image;
-            document.getElementById("project-client").innerText =
-              project.client;
-            document.getElementById("project-year").innerText = project.year;
-            document.getElementById("project-service").innerText =
-              project.service;
-            document.getElementById("project-details").innerHTML =
-              project.project_details;
+            let metaHTML = "";
+            if (p.service) metaHTML += `<div class="detail-meta-grid"><span class="detail-meta-label">Service</span><p class="detail-meta-value">${p.service}</p></div>`;
+            if (p.client) metaHTML += `<div class="detail-meta-grid"><span class="detail-meta-label">Client</span><p class="detail-meta-value">${p.client}</p></div>`;
+            if (p.year) metaHTML += `<div class="detail-meta-grid"><span class="detail-meta-label">Year</span><p class="detail-meta-value">${p.year}</p></div>`;
+
+            el.innerHTML = `
+              <h1 class="detail-title">${p.name}</h1>
+              ${p.main_project_image ? `<img src="${p.main_project_image}" alt="${p.name}" class="detail-image" />` : ""}
+              ${metaHTML}
+              ${p.project_summary ? `<div class="detail-meta-grid"><span class="detail-meta-label">About</span><p class="detail-meta-value">${p.project_summary}</p></div>` : ""}
+              <hr class="detail-divider" />
+              <div class="detail-body">${p.project_details || ""}</div>
+            `;
           })
           .catch((err) => console.error("Error:", err));
 
         fetch("/get_projects.php")
-          .then((response) => response.json())
+          .then((r) => r.json())
           .then((projects) => {
-            const container = document.getElementById(
-              "other-projects-container"
-            );
-            projects.forEach((p) => {
-              if (p.slug !== slug) {
-                container.innerHTML += `
-                  <div role="listitem" class="project-collection-item w-dyn-item">
-                    <a href="detail_project.html?slug=${p.slug}" class="project-item w-inline-block">
-                      <div class="project-item-image-holder">
-                        <img alt="${p.name}" src="${p.thumb_project_image}" class="project-item-image other-project-image" sizes="(max-width: 479px) 92vw, (max-width: 1279px) 95vw, (max-width: 1439px) 1232px, 1392px" />
-                        <div class="project-item-image-overlay"></div>
-                      </div>
-                      <div class="project-item-content">
-                        <div class="perspective">
-                          <div class="perspective-load1-on-view">
-                            <h3 class="project-item-title">${p.name}</h3>
-                          </div>
-                        </div>
-                        <div class="project-item-arrow-holder">
-                          <img src="images/Link-Arrow.svg" alt="" class="project-item-arrow" />
-                        </div>
-                      </div>
-                    </a>
-                  </div>`;
-              }
-            });
+            const el = document.getElementById("other-projects");
+            let idx = 0;
+            el.innerHTML = projects
+              .filter((p) => p.slug !== slug)
+              .map((p) => {
+                idx++;
+                return `
+                <div class="other-entry">
+                  <span class="other-num">${String(idx).padStart(2, "0")}</span>
+                  <a href="detail_project.html?slug=${p.slug}" class="other-link">
+                    <h3 class="other-title">${p.name}</h3>
+                    ${p.service ? `<div class="other-service">${p.service}</div>` : ""}
+                  </a>
+                </div>`;
+              })
+              .join("");
           })
-          .catch((err) => console.error("Error fetching projects:", err));
+          .catch((err) => console.error("Error:", err));
       });
     </script>
   </body>

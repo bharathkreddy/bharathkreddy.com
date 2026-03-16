@@ -5,7 +5,7 @@
 >
   <head>
     <meta charset="utf-8" />
-    <title>BRK</title>
+    <title>BRK | Projects</title>
     <meta content="BRK" name="description" />
     <meta content="BRK" property="og:title" />
     <meta content="BRK" property="og:description" />
@@ -62,6 +62,86 @@
     />
     <meta name="apple-mobile-web-app-title" content="brk" />
     <link rel="manifest" href="/images/site.webmanifest" />
+
+    <style>
+      .listing-section { padding: 2vw 0 4vw; }
+      .listing-entry {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 3.5rem 0;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        align-items: start;
+      }
+      .listing-label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding-top: 0.4rem;
+      }
+      .listing-num {
+        font-family: Manrope, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        color: rgba(0,0,0,0.18);
+        text-transform: uppercase;
+      }
+      .listing-meta {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.3);
+        line-height: 1.5;
+      }
+      .listing-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .listing-title {
+        font-family: Manrope, sans-serif;
+        font-size: clamp(26px, 2.8vw, 44px);
+        font-weight: 400;
+        line-height: 1.2;
+        color: #0a0a0a;
+        margin: 0 0 0.6rem;
+        transition: transform 0.3s ease;
+      }
+      .listing-link:hover .listing-title {
+        transform: translateX(8px);
+      }
+      .listing-summary {
+        font-family: Manrope, sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(0,0,0,0.5);
+        margin: 0 0 2rem;
+        max-width: 640px;
+      }
+      .listing-image-wrap {
+        overflow: hidden;
+      }
+      .listing-image {
+        width: 100%;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .listing-link:hover .listing-image {
+        transform: scale(1.02);
+      }
+      @media screen and (max-width: 767px) {
+        .listing-entry {
+          grid-template-columns: 1fr;
+          gap: 0.5rem;
+          padding: 2.5rem 0;
+        }
+        .listing-label { flex-direction: row; gap: 1rem; padding-top: 0; }
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
@@ -141,76 +221,13 @@
               <h1 class="hero-text left-align">Work</h1>
             </div>
           </div>
-          <div class="perspective">
-            <div
-              style="
-                -webkit-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -moz-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -ms-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform-style: preserve-3d;
-                opacity: 0;
-              "
-              class="perspective-load4"
-            >
-              <h4 class="no-margin-bottom">Problem Solver</h4>
-            </div>
-          </div>
-          <div class="perspective">
-            <div
-              style="
-                -webkit-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -moz-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -ms-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform-style: preserve-3d;
-                opacity: 0;
-              "
-              class="perspective-load5"
-            >
-              <h4 class="no-margin">living in London, focused on</h4>
-            </div>
-          </div>
-          <div class="perspective">
-            <div
-              style="
-                -webkit-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -moz-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                -ms-transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform: translate3d(0, 60%, -3vw) scale3d(1, 1, 1)
-                  rotateX(-100deg) rotateY(0) rotateZ(0) skew(0, 0);
-                transform-style: preserve-3d;
-                opacity: 0;
-              "
-              class="perspective-load6"
-            >
-              <h4 class="no-margin-top">knowledge graphs at the moment.</h4>
-            </div>
-          </div>
         </div>
       </div>
-      <div class="section">
-        <div class="container no-max-width">
-          <div class="w-dyn-list">
-            <div
-              role="list"
-              class="project-collection-list w-dyn-items"
-              id="projects-container"
-            ></div>
-          </div>
-        </div>
+
+      <div class="listing-section">
+        <div class="container" id="projects-listing"></div>
       </div>
+
       <div class="footer">
         <div class="container w-container">
           <div class="footer-title-container">
@@ -272,31 +289,32 @@
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         fetch("/get_projects.php")
-          .then((response) => response.json())
+          .then((r) => r.json())
           .then((projects) => {
-            const container = document.getElementById("projects-container");
-
-            projects.forEach((project) => {
-              container.innerHTML += `
-              <div role="listitem" class="project-collection-item w-dyn-item">
-                <a href="detail_project.html?slug=${project.slug}" class="project-item w-inline-block">
-                  <div class="project-item-image-holder">
-                    <img alt="${project.name}" src="${project.thumb_project_image}" class="project-item-image">
-                    <div class="project-item-image-overlay"></div>
+            const listing = document.getElementById("projects-listing");
+            if (!projects.length) {
+              listing.innerHTML = '<p style="color:rgba(0,0,0,0.4)">No projects yet.</p>';
+              return;
+            }
+            listing.innerHTML = projects
+              .map((p, i) => {
+                const num = String(i + 1).padStart(2, "0");
+                return `
+                <div class="listing-entry">
+                  <div class="listing-label">
+                    <span class="listing-num">${num}</span>
+                    <span class="listing-meta">${p.service || ""}</span>
                   </div>
-                  <div class="project-item-content">
-                    <div class="perspective">
-                      <div class="perspective-load1-on-view">
-                        <h3 class="project-item-title">${project.name}</h3>
-                      </div>
+                  <a href="detail_project.html?slug=${p.slug}" class="listing-link">
+                    <h2 class="listing-title">${p.name}</h2>
+                    ${p.project_summary ? `<p class="listing-summary">${p.project_summary}</p>` : ""}
+                    <div class="listing-image-wrap">
+                      <img src="${p.thumb_project_image}" alt="${p.name}" class="listing-image" />
                     </div>
-                    <div class="project-item-arrow-holder">
-                      <img src="images/Link-Arrow.svg" alt="" class="project-item-arrow">
-                    </div>
-                  </div>
-                </a>
-              </div>`;
-            });
+                  </a>
+                </div>`;
+              })
+              .join("");
           })
           .catch((err) => console.error("Error fetching projects:", err));
       });

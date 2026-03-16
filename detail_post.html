@@ -5,7 +5,7 @@
 >
   <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>BRK</title>
     <meta content="" name="description" />
     <meta content="" property="og:title" />
     <meta content="" property="og:description" />
@@ -48,7 +48,6 @@
             (n.className += t + "touch");
       })(window, document);
     </script>
-
     <link
       rel="icon"
       type="image/png"
@@ -64,6 +63,123 @@
     />
     <meta name="apple-mobile-web-app-title" content="brk" />
     <link rel="manifest" href="/images/site.webmanifest" />
+
+    <style>
+      .detail-hero { padding: 2vw 0 0; }
+      .detail-title {
+        font-family: Manrope, sans-serif;
+        font-size: clamp(32px, 4vw, 64px);
+        font-weight: 400;
+        line-height: 1.1;
+        color: #0a0a0a;
+        margin: 0 0 2.5rem;
+      }
+      .detail-image {
+        width: 100%;
+        display: block;
+        margin-bottom: 3rem;
+      }
+      .detail-meta-grid {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(0,0,0,0.08);
+      }
+      .detail-meta-label {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.3);
+        padding-top: 0.2rem;
+      }
+      .detail-meta-value {
+        font-family: Manrope, sans-serif;
+        font-size: 15px;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(0,0,0,0.65);
+        margin: 0;
+      }
+      .detail-divider {
+        border: none;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        margin: 3rem 0;
+      }
+      .detail-body {
+        font-family: Manrope, sans-serif;
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 1.8;
+        color: rgba(0,0,0,0.7);
+        max-width: 780px;
+      }
+      .detail-body h2, .detail-body h3 { font-weight: 500; color: #0a0a0a; margin-top: 2rem; }
+      .detail-body img { max-width: 100%; margin: 2rem 0; }
+      .detail-body a { color: #0a0a0a; text-decoration: underline; text-underline-offset: 3px; }
+
+      /* Other posts listing */
+      .other-section { padding: 4vw 0 2vw; }
+      .other-heading {
+        font-family: Manrope, sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.18);
+        margin: 0 0 1rem;
+      }
+      .other-entry {
+        display: grid;
+        grid-template-columns: 80px 1fr;
+        gap: 2rem;
+        padding: 2rem 0;
+        border-top: 1px solid rgba(0,0,0,0.08);
+        align-items: center;
+      }
+      .other-label {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+      .other-meta {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.3);
+      }
+      .other-date {
+        font-family: Manrope, sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(0,0,0,0.18);
+      }
+      .other-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .other-title {
+        font-family: Manrope, sans-serif;
+        font-size: clamp(18px, 1.8vw, 28px);
+        font-weight: 400;
+        color: #0a0a0a;
+        margin: 0;
+        transition: transform 0.3s ease;
+      }
+      .other-link:hover .other-title { transform: translateX(8px); }
+      @media screen and (max-width: 767px) {
+        .detail-meta-grid { grid-template-columns: 1fr; gap: 0.3rem; }
+        .other-entry { grid-template-columns: 1fr; gap: 0.3rem; }
+        .other-label { flex-direction: row; gap: 0.8rem; }
+      }
+    </style>
   </head>
   <body>
     <div class="wrapper">
@@ -99,83 +215,18 @@
         </div>
         <div class="nav-bg-white"></div>
       </div>
-      <div class="section">
-        <div
-          class="container main-hero-container"
-          id="post-detail-container"
-        ></div>
+
+      <div class="detail-hero">
+        <div class="container" id="post-detail"></div>
       </div>
-      <div class="section">
-        <div class="container line-container">
-          <div
-            data-w-id="6852fe74-b989-993f-9061-043e6aa3f908"
-            style="opacity: 0"
-            class="horizontal-line"
-          ></div>
-        </div>
-        <div
-          data-w-id="6852fe74-b989-993f-9061-043e6aa3f909"
-          style="opacity: 0"
-          class="infinite-carousel-container"
-        >
-          <div
-            style="
-              -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1)
-                rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-              -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-            "
-            class="infinite-carousel _1"
-          >
-            <div class="infinite-text-holder">
-              <h2 class="infinite-text">BLOG POSTS</h2>
-              <h2 class="infinite-text">FROM</h2>
-              <h2 class="infinite-text">THE PAST</h2>
-            </div>
-          </div>
-          <div
-            style="
-              -webkit-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1)
-                rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);
-              -moz-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              -ms-transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-              transform: translate3d(0%, 0, 0) scale3d(1, 1, 1) rotateX(0)
-                rotateY(0) rotateZ(0) skew(0, 0);
-            "
-            class="infinite-carousel _2"
-          >
-            <div class="infinite-text-holder">
-              <h2 class="infinite-text">BLOG POSTS</h2>
-              <h2 class="infinite-text">FROM</h2>
-              <h2 class="infinite-text">THE PAST</h2>
-            </div>
-          </div>
-        </div>
-        <div class="container line-container">
-          <div
-            data-w-id="6852fe74-b989-993f-9061-043e6aa3f90f"
-            style="opacity: 0"
-            class="horizontal-line"
-          ></div>
-        </div>
-      </div>
-      <div class="section">
+
+      <div class="other-section">
         <div class="container">
-          <div class="w-dyn-list">
-            <div
-              id="blog-posts-container-secondary"
-              role="list"
-              class="blog-post-grid w-dyn-items"
-            ></div>
-          </div>
+          <p class="other-heading">More from the journal</p>
+          <div id="other-posts"></div>
         </div>
       </div>
+
       <div class="footer">
         <div class="container w-container">
           <div class="footer-title-container">
@@ -234,85 +285,65 @@
       crossorigin="anonymous"
     ></script>
     <script src="js/webflow.js" type="text/javascript"></script>
-    <div id="post-detail-container"></div>
-
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const slug = urlParams.get("slug");
+        const slug = new URLSearchParams(window.location.search).get("slug");
 
         fetch(`/get_single_post.php?slug=${slug}`)
-          .then((response) => response.json())
-          .then((post) => {
-            const container = document.getElementById("post-detail-container");
-            if (post.error) {
-              container.innerHTML = "Post not found!";
+          .then((r) => r.json())
+          .then((p) => {
+            const el = document.getElementById("post-detail");
+            if (p.error) {
+              el.innerHTML = "<p>Post not found.</p>";
               return;
             }
+            document.title = p.name + " — BRK";
 
-            container.innerHTML = `
-              <div class="perspective">
-                <div class="fade-in-2-slow-on-view" style="opacity: 1;">
-                  <h1 class="post-details-title">${post.name}</h1>
-                </div>
-                <img data-w-id="f58ee193-1f99-9f9b-a87e-abfe44f3abc0" loading="lazy" style="opacity: 1;" src="${post.main_image}" alt="${post.name}" class="post-detail-image" />
-                
-                <div class="w-layout-grid grid-6-columns">
-                  <div id="w-node-ea428a66-ffeb-86ca-a262-352421be21f8-46362f96" class="post-item-content-bottom">
-                    <h4 class="post-item-category" style="opacity: 1;">${post.category}</h4>
-                    <h5 class="post-item-date" style="opacity: 1;">${post.published_on}</h5>
-                  </div>
-                  <div id="w-node-_649d3aac-aab8-de00-e79e-280d29ee3758-46362f96" class="content mainpost">
-                    <div class="fade-in-slow-on-view" style="opacity: 1;">
-                      <h5>${post.summary}</h5>
-                    </div>
-                  </div>
-                </div>
+            const d = p.published_on ? new Date(p.published_on) : null;
+            const dateStr = d
+              ? d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+              : "";
 
-                <div class="horizontal-line-container">
-                  <div class="horizontal-line"></div>
-                </div>
-                <div style="opacity: 1;" class="content-details w-richtext">
-                  ${post.post_body}
-                </div>
-              </div>  
+            let metaHTML = "";
+            if (p.category) metaHTML += `<div class="detail-meta-grid"><span class="detail-meta-label">Category</span><p class="detail-meta-value">${p.category}</p></div>`;
+            if (dateStr) metaHTML += `<div class="detail-meta-grid"><span class="detail-meta-label">Date</span><p class="detail-meta-value">${dateStr}</p></div>`;
+
+            el.innerHTML = `
+              <h1 class="detail-title">${p.name}</h1>
+              ${p.main_image ? `<img src="${p.main_image}" alt="${p.name}" class="detail-image" />` : ""}
+              ${metaHTML}
+              ${p.summary ? `<div class="detail-meta-grid"><span class="detail-meta-label">Summary</span><p class="detail-meta-value">${p.summary}</p></div>` : ""}
+              <hr class="detail-divider" />
+              <div class="detail-body">${p.post_body || ""}</div>
             `;
           })
           .catch((err) => console.error("Error:", err));
 
         fetch("/get_blog_posts.php")
-          .then((response) => response.json())
+          .then((r) => r.json())
           .then((posts) => {
-            const secondaryContainer = document.getElementById(
-              "blog-posts-container-secondary"
-            );
-            secondaryContainer.innerHTML = "";
-            posts.forEach((post) => {
-              if (post.slug !== slug) {
-                secondaryContainer.innerHTML += `
-                  <div role="listitem" class="post-collection-item w-dyn-item">
-                    <a href="detail_post.html?slug=${
-                      post.slug
-                    }" class="post-item w-inline-block">
-                      <h3 class="post-item-title">${post.name}</h3>
-                      <div class="post-item-image-container">
-                        <img src="${post.main_image}" alt="${
-                  post.name
-                }" class="post-item-image" />
-                      </div>
-                      <div class="post-item-content-bottom">
-                        <h4 class="post-item-category">${post.category}</h4>
-                        <h5 class="post-item-date">${new Date(
-                          post.published_on
-                        ).toLocaleDateString()}</h5>
-                      </div>
-                    </a>
+            const el = document.getElementById("other-posts");
+            el.innerHTML = posts
+              .filter((p) => p.slug !== slug)
+              .map((p) => {
+                const d = p.published_on ? new Date(p.published_on) : null;
+                const dateStr = d
+                  ? d.toLocaleDateString("en-US", { month: "short", year: "numeric" }).toUpperCase()
+                  : "";
+                return `
+                <div class="other-entry">
+                  <div class="other-label">
+                    <span class="other-meta">${p.category || ""}</span>
+                    <span class="other-date">${dateStr}</span>
                   </div>
-                `;
-              }
-            });
+                  <a href="detail_post.html?slug=${p.slug}" class="other-link">
+                    <h3 class="other-title">${p.name}</h3>
+                  </a>
+                </div>`;
+              })
+              .join("");
           })
-          .catch((err) => console.error("Error fetching blog posts:", err));
+          .catch((err) => console.error("Error:", err));
       });
     </script>
   </body>
